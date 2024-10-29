@@ -16,7 +16,7 @@ from api.database_routes import database_bp
 
 from services.Database import Database
 from services.Authenticator import Authenticator
-from services.LlmManager import LlmManager
+from services.LLMManager import LLMManager
 from services.Scraper import Scraper
 from services.EmailManager import EmailManager
 
@@ -59,7 +59,7 @@ def log_request_teardown(error=None):
 # CONFIGURE SERVICES
 app.config['database'] = Database(db)
 app.config['authenticator'] = Authenticator()
-app.config['studentManager'] = LlmManager()
+app.config['studentManager'] = LLMManager()
 app.config['scraper'] = Scraper()
 app.config['emailManager'] = EmailManager()
 
