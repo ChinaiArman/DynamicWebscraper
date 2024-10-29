@@ -28,7 +28,7 @@ def register():
     """
     return jsonify({"message": "register endpoint"})
 
-@authentication_bp.route('/authenticate/reset_password/', methods=['POST'])
+@authentication_bp.route('/authenticate/reset-password/', methods=['POST'])
 def reset_password():
     """
     """

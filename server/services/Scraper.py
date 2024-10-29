@@ -4,8 +4,8 @@
 # IMPORTS
 
 
-# LlmManager CLASS
-class LlmManager:
+# SCRAPER CLASS
+class Scraper:
     """
     """
     def __init__(self):

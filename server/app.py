@@ -11,10 +11,13 @@ import os
 from logging_config import configure_logging
 
 from api.authentication_routes import authentication_bp
+from api.scraping_routes import scraping_bp
+from api.database_routes import database_bp
 
 from services.Database import Database
 from services.Authenticator import Authenticator
 from services.LlmManager import LlmManager
+from services.Scraper import Scraper
 from services.EmailManager import EmailManager
 
 from db_config import db, configure_db
@@ -57,6 +60,7 @@ def log_request_teardown(error=None):
 app.config['database'] = Database(db)
 app.config['authenticator'] = Authenticator()
 app.config['studentManager'] = LlmManager()
+app.config['scraper'] = Scraper()
 app.config['emailManager'] = EmailManager()
 
 
@@ -66,6 +70,8 @@ def root():
     return jsonify({"message": "Hello World"})
 
 app.register_blueprint(authentication_bp, url_prefix='/api')
+app.register_blueprint(scraping_bp, url_prefix='/api')
+app.register_blueprint(database_bp, url_prefix='/api')
 
 
 # MAIN
