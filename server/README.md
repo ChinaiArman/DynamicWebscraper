@@ -76,5 +76,5 @@
 
    ```sh
    cd ..                      # Change to the project directory
-   python server/app.py       # Run the server
+   python server/run.py       # Run the server
    ```
