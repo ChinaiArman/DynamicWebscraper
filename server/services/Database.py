@@ -2,13 +2,15 @@
 """
 
 # IMPORTS
+from models.Scrape import Scrape
+from models.User import User
 
 
 # DATABASE CLASS
 class Database:
     """
     """
-    def __init__(self):
+    def __init__(self, db):
         """
         """
-        pass
+        self.db = db
