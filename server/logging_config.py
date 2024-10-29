@@ -4,6 +4,8 @@
 # IMPORTS
 import logging
 from logging.handlers import RotatingFileHandler
+from flask import request, g
+import time
 import os
 
 
@@ -35,20 +37,64 @@ def configure_logging(app) -> None:
     Author: ``@ChinaiArman``
     """
     init_log_files()
+
     app.logger.setLevel(logging.INFO)
     file_handler = RotatingFileHandler('server/logs/app.log', maxBytes=10240, backupCount=10)
     file_handler.setLevel(logging.INFO)
 
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
-
     app.logger.addHandler(file_handler)
 
     error_handler = RotatingFileHandler('server/logs/error.log', maxBytes=10240, backupCount=10)
     error_handler.setLevel(logging.ERROR)
     error_handler.setFormatter(formatter)
     app.logger.addHandler(error_handler)
+
+    create_response_functions(app)
     return
+
+
+def create_response_functions(app) -> None:
+    """
+    Create functions to log incoming requests, outgoing responses and errors.
+
+    Args:
+    -----
+    app (Flask): The Flask application instance.
+
+    Returns:
+    --------
+    None
+
+    Notes:
+    ------
+    1. The functions log incoming requests, outgoing responses and errors.
+    2. The functions are executed before and after each request.
+
+    Example:
+    --------
+    >>> app = Flask(__name__)
+    >>> create_response_functions(app)
+    ... # Functions created to log incoming requests, outgoing responses and errors
+
+    Author: ``@ChinaiArman``
+    """
+    @app.before_request
+    def _():
+        g.start_time = time.time()
+        app.logger.info(f"Incoming request Request: {request.method} {request.path}")
+
+    @app.after_request
+    def _(response):
+        execution_time = time.time() - g.start_time
+        app.logger.info(f"Completed request: {request.method} {request.path} "f"with status {response.status_code} in {execution_time:.4f}s")
+        return response
+
+    @app.teardown_request
+    def _(error=None):
+        if error is not None:
+            app.logger.error(f"An error occurred: {error}")
 
 
 def init_log_files() -> None:
