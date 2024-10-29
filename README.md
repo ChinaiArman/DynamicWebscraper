@@ -1,1 +1,1 @@
-# BCIT-Global-Relations-Office-Timetable-Dashboard
+# DynamicWebscraper
