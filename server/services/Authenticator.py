@@ -3,6 +3,7 @@
 
 # IMPORTS
 import bcrypt
+import secrets
 
 from exceptions import NoCreditsRemaining, IncorrectPassword
 
@@ -39,10 +40,10 @@ class Authenticator:
     def generate_api_key(self):
         """
         """
-        return bcrypt.gensalt().decode('utf-8')
+        return secrets.token_hex(25)
     
     def generate_verification_code(self):
         """
         """
-        return bcrypt.gensalt().decode('utf-8')[:6]
+        return secrets.token_hex(3)
     

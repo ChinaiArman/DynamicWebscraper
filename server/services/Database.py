@@ -17,12 +17,12 @@ class Database:
         """
         self.db = db
 
-    def create_user(self, email, password, name, api_key, reset_code):
+    def create_user(self, email, password, name, api_key, verification_code):
         """
         """
         if self.db.session.query(User).filter(User.email == email).first():
             raise EmailAddressAlreadyInUse
-        user = User(email=email, password=password, name=name, api_key=api_key, reset_code=reset_code, is_verified=False, requests_available=20)
+        user = User(email=email, password=password, name=name, api_key=api_key, verification_code=verification_code, is_verified=False, requests_available=20)
         self.db.session.add(user)
         self.db.session.commit()
         return user
