@@ -5,8 +5,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 
-from logging_config import configure_logging
-
 from api.authentication_routes import authentication_bp
 from api.scraping_routes import scraping_bp
 from api.database_routes import database_bp
@@ -18,6 +16,8 @@ from services.Scraper import Scraper
 from services.EmailManager import EmailManager
 
 from db_config import db, configure_db
+from logging_config import configure_logging
+from session_config import configure_sessions
 
 
 # CREATE APP
@@ -38,6 +38,9 @@ def create_app() -> Flask:
 
     # LOGGING CONFIGURATION
     configure_logging(app)
+
+    # CONFIGURE SESSIONS
+    configure_sessions(app, db)
 
     # CONFIGURE SERVICES
     app.config['database'] = Database(db)
