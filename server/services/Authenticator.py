@@ -2,6 +2,7 @@
 """
 
 # IMPORTS
+from exceptions import NoCreditsRemaining
 
 
 # AUTHENTICATOR CLASS
@@ -13,7 +14,9 @@ class Authenticator:
         """
         pass
 
-    def is_valid_api_key(self, user):
+    def is_scrape_available(self, user):
         """
         """
-        return user.requests_available > 0
+        if user.requests_available <= 0:
+            raise NoCreditsRemaining
+        return True

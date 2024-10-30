@@ -5,6 +5,8 @@
 from models.Scrape import Scrape
 from models.User import User
 
+from exceptions import InvalidAPIKey
+
 
 # DATABASE CLASS
 class Database:
@@ -19,4 +21,6 @@ class Database:
         """
         """
         user = self.db.session.query(User).filter(User.api_key == api_key).first()
+        if not user:
+            raise InvalidAPIKey
         return user

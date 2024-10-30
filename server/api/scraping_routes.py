@@ -4,8 +4,6 @@
 # IMPORTS
 from flask import Blueprint, jsonify, request, current_app
 
-from exceptions import InvalidAPIKey, NoCreditsRemaining
-
 
 # DEFINE BLUEPRINT
 scraping_bp = Blueprint('scraping_bp', __name__)
@@ -21,12 +19,8 @@ def api_key_required(func):
             try:
                 api_key = api_key.split(" ")[1]
                 user = db.get_user_by_api_key(api_key)
-                if not user:
-                    raise InvalidAPIKey
-                if authenticator.is_valid_api_key(user):
-                    return func(*args, **kwargs)
-                else:
-                    raise NoCreditsRemaining
+                authenticator.is_scrape_available(user)
+                return func(*args, **kwargs)
             except Exception as e:
                 return jsonify({"error": str(e)}), 401
     wrapper.__name__ = func.__name__
