@@ -36,3 +36,12 @@ class IncorrectPassword(Exception):
         """
         self.message = message
         super().__init__(self.message)
+
+class EmailAddressAlreadyInUse(Exception):
+    """
+    """
+    def __init__(self, message="Email address already in use"):
+        """
+        """
+        self.message = message
+        super().__init__(self.message)

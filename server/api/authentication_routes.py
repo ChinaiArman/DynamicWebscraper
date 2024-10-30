@@ -40,7 +40,19 @@ def logout():
 def register():
     """
     """
-    return jsonify({"message": "register endpoint"})
+    try:
+        db = current_app.config['database']
+        authenticator = current_app.config['authenticator']
+        email = request.json.get('email')
+        password = authenticator.encrypt_password(request.json.get('password'))
+        name = request.json.get('name')
+        api_key = authenticator.generate_api_key()
+        reset_code = authenticator.generate_reset_code()
+        user = db.create_user(email, password, name, api_key, reset_code)
+        session["user_id"] = user.id
+        return jsonify({"message": "registration successful"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/reset-password/', methods=['POST'])
 def reset_password():
