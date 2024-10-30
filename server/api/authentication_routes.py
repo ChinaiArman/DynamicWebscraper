@@ -21,6 +21,7 @@ def login():
         password = request.json.get('password')
         user = db.get_user_by_email(email)
         authenticator.verify_password(password, user.password)
+        session.permanent = True
         session["user_id"] = user.id
         return jsonify({"message": "login successful"}), 200
     except Exception as e:
@@ -49,6 +50,7 @@ def register():
         api_key = authenticator.generate_api_key()
         verification_code = authenticator.generate_verification_code()
         user = db.create_user(email, password, name, api_key, verification_code)
+        session.permanent = True
         session["user_id"] = user.id
         return jsonify({"message": "registration successful"}), 200
     except Exception as e:
