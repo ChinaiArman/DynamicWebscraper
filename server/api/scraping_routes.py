@@ -26,6 +26,7 @@ def api_key_required(func):
     wrapper.__name__ = func.__name__
     return wrapper
 
+
 # ROUTES
 @scraping_bp.route('/scrape/', methods=['GET'])
 @api_key_required
