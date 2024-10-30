@@ -39,9 +39,3 @@ def verify():
     """
     """
     return jsonify({"message": "verify endpoint"})
-
-@authentication_bp.route('/authenticate/logout/', methods=['POST'])
-def logout():
-    """
-    """
-    return jsonify({"message": "logout endpoint"})
