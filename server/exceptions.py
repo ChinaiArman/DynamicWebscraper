@@ -27,3 +27,12 @@ class InvalidEmailAddress(Exception):
         """
         self.message = message
         super().__init__(self.message)
+    
+class IncorrectPassword(Exception):
+    """
+    """
+    def __init__(self, message="Incorrect password"):
+        """
+        """
+        self.message = message
+        super().__init__(self.message)

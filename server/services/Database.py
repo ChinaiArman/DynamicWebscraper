@@ -5,7 +5,7 @@
 from models.Scrape import Scrape
 from models.User import User
 
-from exceptions import InvalidAPIKey
+from exceptions import InvalidAPIKey, InvalidEmailAddress
 
 
 # DATABASE CLASS
@@ -24,3 +24,10 @@ class Database:
         if not user:
             raise InvalidAPIKey
         return user
+
+    def get_user_by_email(self, email):
+        user = self.db.session.query(User).filter(User.email == email).first()
+        if not user:
+            raise InvalidEmailAddress
+        return user
+    

@@ -2,7 +2,7 @@
 """
 
 # IMPORTS
-from flask import Blueprint, jsonify, request, current_app
+from flask import Blueprint, jsonify, request, current_app, session
 
 
 # DEFINE BLUEPRINT
@@ -14,13 +14,27 @@ authentication_bp = Blueprint('authentication_bp', __name__)
 def login():
     """
     """
-    return jsonify({"message": "login endpoint"})
+    try:
+        db = current_app.config['database']
+        authenticator = current_app.config['authenticator']
+        email = request.json.get('email')
+        password = request.json.get('password')
+        user = db.get_user_by_email(email)
+        authenticator.verify_password(user, password)
+        session["user_id"] = user.id
+        return jsonify({"message": "login successful"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/logout/', methods=['POST'])
 def logout():
     """
     """
-    return jsonify({"message": "logout endpoint"})
+    try:
+        session.clear()
+        return jsonify({"message": "logout successful"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/register/', methods=['POST'])
 def register():
