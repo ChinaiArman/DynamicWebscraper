@@ -25,8 +25,6 @@ def configure_logging(app) -> None:
     Disclaimer
     ----------
     This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-    Author: ``@ChinaiArman``
     """
     init_log_files()
 
@@ -62,8 +60,6 @@ def create_response_functions(app) -> None:
     Disclaimer
     ----------
     This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-    Author: ``@ChinaiArman``
     """
     @app.before_request
     def _():
@@ -93,8 +89,6 @@ def init_log_files() -> None:
     Returns
     -------
     None
-
-    Author: ``@ChinaiArman``
     """
     if not os.path.exists('server/logs'):
         os.makedirs('server/logs')

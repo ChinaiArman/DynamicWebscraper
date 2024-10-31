@@ -25,8 +25,6 @@ def api_key_required(func: callable) -> callable:
     Disclaimer
     ----------
     This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-    Author: ``@ChinaiArman``
     """
     def wrapper(*args, **kwargs) -> callable:
         """
@@ -44,8 +42,6 @@ def api_key_required(func: callable) -> callable:
         Disclaimer
         ----------
         This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         db = current_app.config['database']
         authenticator = current_app.config['authenticator']

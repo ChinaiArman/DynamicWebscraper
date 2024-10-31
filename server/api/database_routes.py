@@ -25,8 +25,6 @@ def login_required(func: callable) -> callable:
     Disclaimer
     ----------
     This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-    Author: ``@ChinaiArman``
     """
     def wrapper(*args, **kwargs) -> callable:
         """
@@ -44,8 +42,6 @@ def login_required(func: callable) -> callable:
         Disclaimer
         ----------
         This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         if "user_id" in session:
             return func(*args, **kwargs)
@@ -69,8 +65,6 @@ def get_user_information() -> tuple:
     Returns
     -------
     tuple: The user information and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -93,8 +87,6 @@ def get_scrape_history() -> tuple:
     Returns
     -------
     tuple: The scrape history and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -117,8 +109,6 @@ def change_name() -> tuple:
     Returns
     -------
     tuple: The response and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']

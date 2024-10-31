@@ -24,8 +24,6 @@ class Database:
         Args
         ----
         db (SQLAlchemy): SQLAlchemy object.
-
-        Author: ``@ChinaiArman``
         """
         self.db = db
 
@@ -51,8 +49,6 @@ class Database:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         if self.db.session.query(User).filter(User.email == email).first():
             raise EmailAddressAlreadyInUse
@@ -80,8 +76,6 @@ class Database:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         user = self.db.session.query(User).filter(User.id == user_id).first()
         if not user:
@@ -107,8 +101,6 @@ class Database:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         user = self.db.session.query(User).filter(User.api_key == api_key).first()
         if not user:
@@ -134,8 +126,6 @@ class Database:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-        
-        Author: ``@ChinaiArman``
         """
         user = self.db.session.query(User).filter(User.email == email).first()
         if not user:
@@ -154,8 +144,6 @@ class Database:
         Returns
         -------
         None
-
-        Author: ``@ChinaiArman``
         """
         user.is_verified = True
         user.verification_code = None
@@ -175,8 +163,6 @@ class Database:
         Returns
         -------
         None
-
-        Author: ``@ChinaiArman``
         """
         user.reset_code = reset_code
         self.db.session.commit()
@@ -194,8 +180,6 @@ class Database:
         Returns
         -------
         None
-
-        Author: ``@ChinaiArman``
         """
         user.password = password
         user.reset_code = None
@@ -217,8 +201,6 @@ class Database:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         scrapes = self.db.session.query(Scrape).filter(Scrape.user_id == user_id).all()
         return scrapes
@@ -235,8 +217,6 @@ class Database:
         Returns
         -------
         None
-
-        Author: ``@ChinaiArman``
         """
         if not user.is_verified:
             raise ImpermissibleUserRequest
@@ -256,8 +236,6 @@ class Database:
         Returns
         -------
         None
-
-        Author: ``@ChinaiArman``
         """
         user.name = name
         self.db.session.commit()

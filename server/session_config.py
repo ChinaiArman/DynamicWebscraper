@@ -23,8 +23,6 @@ def configure_sessions(app, db) -> None:
     Disclaimer
     ----------
     This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-    Author: ``@ChinaiArman``
     """
     app.config['SECRET_KEY'] = 'imsosleepybruh'
     app.config['SESSION_TYPE'] = 'sqlalchemy'

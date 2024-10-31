@@ -32,8 +32,6 @@ def create_app() -> Flask:
     Returns
     -------
     app (Flask): The Flask application instance.
-
-    Author: ``@ChinaiArman``
     """
     # FLASK CONFIGURATION
     app = Flask(__name__)

@@ -24,8 +24,6 @@ class Authenticator:
         Args
         ----
         None
-
-        Author: ``@ChinaiArman``
         """
         pass
 
@@ -44,8 +42,6 @@ class Authenticator:
         Raises
         ------
         NoCreditsRemaining: If the user has no credits remaining.
-
-        Author: ``@ChinaiArman``
         """
         if user.requests_available <= 0:
             raise NoCreditsRemaining
@@ -66,8 +62,6 @@ class Authenticator:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         salt = bcrypt.gensalt()
         return bcrypt.hashpw(password.encode('utf-8'), salt)
@@ -92,8 +86,6 @@ class Authenticator:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         if not bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
             raise IncorrectPassword
@@ -114,8 +106,6 @@ class Authenticator:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         return secrets.token_hex(25)
     
@@ -134,8 +124,6 @@ class Authenticator:
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
-
-        Author: ``@ChinaiArman``
         """
         return secrets.token_hex(3)
     
@@ -155,8 +143,6 @@ class Authenticator:
         Raises
         ------
         InvalidOneTimeCode: If the one-time code is incorrect.
-
-        Author: ``@ChinaiArman``
         """
         if code != user_code or not user_code:
             raise InvalidOneTimeCode

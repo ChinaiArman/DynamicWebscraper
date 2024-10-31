@@ -40,8 +40,6 @@ class User(db.Model):
         Returns
         -------
         str: The string representation of the user.
-
-        Author: ``@ChinaiArman``
         """
         return {
             'id': self.id,

@@ -22,8 +22,6 @@ def login() -> tuple:
     Returns
     -------
     response (tuple): The response tuple containing the response data and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -50,8 +48,6 @@ def logout() -> tuple:
     Returns
     -------
     response (tuple): The response tuple containing the response data and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         session.clear()
@@ -71,8 +67,6 @@ def register() -> tuple:
     Returns
     -------
     response (tuple): The response tuple containing the response data and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -101,8 +95,6 @@ def reset_password() -> tuple:
     Returns
     -------
     response (tuple): The response tuple containing the response data and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -129,8 +121,6 @@ def request_password_reset() -> tuple:
     Returns
     -------
     response (tuple): The response tuple containing the response data and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -156,8 +146,6 @@ def verify() -> tuple:
     Returns
     -------
     response (tuple): The response tuple containing the response data and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -184,8 +172,6 @@ def reset_api_key() -> tuple:
     Returns
     -------
     response (tuple): The response tuple containing the response data and status code.
-
-    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']

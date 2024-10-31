@@ -12,8 +12,6 @@ class InvalidAPIKey(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -29,8 +27,6 @@ class NoCreditsRemaining(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -46,8 +42,6 @@ class InvalidEmailAddress(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -63,8 +57,6 @@ class IncorrectPassword(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -80,8 +72,6 @@ class EmailAddressAlreadyInUse(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -97,8 +87,6 @@ class UserNotFound(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -114,8 +102,6 @@ class InvalidOneTimeCode(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -131,8 +117,6 @@ class ImpermissibleUserRequest(Exception):
         Args
         ----
         message (str): Exception message.
-
-        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)

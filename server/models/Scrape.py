@@ -36,8 +36,6 @@ class Scrape(db.Model):
         Returns
         -------
         str: The string representation of the scrape.
-
-        Author: ``@ChinaiArman``
         """
         return {
             'id': self.id,
