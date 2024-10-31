@@ -11,8 +11,19 @@ authentication_bp = Blueprint('authentication_bp', __name__)
 
 # ROUTES
 @authentication_bp.route('/authenticate/login/', methods=['POST'])
-def login():
+def login() -> tuple:
     """
+    Login a user.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+
+    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -28,8 +39,19 @@ def login():
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/logout/', methods=['POST'])
-def logout():
+def logout() -> tuple:
     """
+    Logout a user.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+
+    Author: ``@ChinaiArman``
     """
     try:
         session.clear()
@@ -38,8 +60,19 @@ def logout():
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/register/', methods=['POST'])
-def register():
+def register() -> tuple:
     """
+    Register a user.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+
+    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -57,8 +90,19 @@ def register():
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/reset-password/', methods=['POST'])
-def reset_password():
+def reset_password() -> tuple:
     """
+    Reset a user's password.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+
+    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -74,8 +118,19 @@ def reset_password():
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/generate-verification/', methods=['POST'])
-def generate_verification():
+def generate_verification() -> tuple:
     """
+    Generate a verification code for a user.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+
+    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']
@@ -90,8 +145,19 @@ def generate_verification():
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/verify/', methods=['POST'])
-def verify():
+def verify() -> tuple:
     """
+    Verify a user.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+
+    Author: ``@ChinaiArman``
     """
     try:
         db = current_app.config['database']

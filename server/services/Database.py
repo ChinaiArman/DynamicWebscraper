@@ -44,6 +44,10 @@ class Database:
         -------
         user (User): The user object.
 
+        Raises
+        ------
+        EmailAddressAlreadyInUse: If the email address is already in use.
+
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
@@ -69,6 +73,10 @@ class Database:
         -------
         user (User): The user object.
 
+        Raises
+        ------
+        UserNotFound: If the user is not found.
+
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
@@ -92,6 +100,10 @@ class Database:
         -------
         user (User): The user object.
 
+        Raises
+        ------
+        InvalidAPIKey: If the API key is invalid.
+
         Disclaimer
         ----------
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
@@ -114,6 +126,10 @@ class Database:
         Returns
         -------
         user (User): The user object.
+
+        Raises
+        ------
+        InvalidEmailAddress: If the email address is invalid.
 
         Disclaimer
         ----------
