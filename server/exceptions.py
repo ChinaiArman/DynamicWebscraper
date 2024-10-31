@@ -8,10 +8,18 @@ class InvalidAPIKey(Exception):
     Attributes:
     -----------
         message (str): Exception message.
+
+    Author: ``@ChinaiArman``
     """
     def __init__(self, message="Invalid API key"):
         """
         Constructor for InvalidAPIKey class.
+
+        Args:
+        -----
+            message (str): Exception message.
+
+        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -23,10 +31,18 @@ class NoCreditsRemaining(Exception):
     Attributes:
     -----------
         message (str): Exception message.
+
+    Author: ``@ChinaiArman``
     """
     def __init__(self, message="No credits remaining"):
         """
         Constructor for NoCreditsRemaining class.
+
+        Args:
+        -----
+            message (str): Exception message.
+
+        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -38,10 +54,18 @@ class InvalidEmailAddress(Exception):
     Attributes:
     -----------
         message (str): Exception message.
+
+    Author: ``@ChinaiArman``
     """
     def __init__(self, message="Invalid email address"):
         """
         Constructor for InvalidEmailAddress class.
+
+        Args:
+        -----
+            message (str): Exception message.
+
+        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -53,10 +77,18 @@ class IncorrectPassword(Exception):
     Attributes:
     -----------
         message (str): Exception message.
+
+    Author: ``@ChinaiArman``
     """
     def __init__(self, message="Incorrect password"):
         """
         Constructor for IncorrectPassword class.
+
+        Args:
+        -----
+            message (str): Exception message.
+
+        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -68,10 +100,18 @@ class EmailAddressAlreadyInUse(Exception):
     Attributes:
     -----------
         message (str): Exception message.
+
+    Author: ``@ChinaiArman``
     """
     def __init__(self, message="Email address already in use"):
         """
         Constructor for EmailAddressAlreadyInUse class.
+
+        Args:
+        -----
+            message (str): Exception message.
+
+        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -83,10 +123,18 @@ class UserNotFound(Exception):
     Attributes:
     -----------
         message (str): Exception message.
+
+    Author: ``@ChinaiArman``
     """
     def __init__(self, message="Invalid user ID"):
         """
         Constructor for UserNotFound class.
+
+        Args:
+        -----
+            message (str): Exception message.
+
+        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
@@ -98,10 +146,18 @@ class InvalidVerificationCode(Exception):
     Attributes:
     -----------
         message (str): Exception message.
+
+    Author: ``@ChinaiArman``
     """
     def __init__(self, message="Invalid verification code"):
         """
         Constructor for InvalidVerificationCode class.
+
+        Args:
+        -----
+            message (str): Exception message.
+
+        Author: ``@ChinaiArman``
         """
         self.message = message
         super().__init__(self.message)
