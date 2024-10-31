@@ -5,7 +5,7 @@
 from models.Scrape import Scrape
 from models.User import User
 
-from exceptions import InvalidAPIKey, InvalidEmailAddress, EmailAddressAlreadyInUse, UserNotFound
+from exceptions import InvalidAPIKey, InvalidEmailAddress, EmailAddressAlreadyInUse, UserNotFound, ImpermissibleUserRequest
 
 
 # DATABASE CLASS
@@ -56,7 +56,7 @@ class Database:
         """
         if self.db.session.query(User).filter(User.email == email).first():
             raise EmailAddressAlreadyInUse
-        user = User(email=email, password=password, name=name, verification_code=verification_code, is_verified=False, requests_available=20)
+        user = User(email=email, password=password, name=name, verification_code=verification_code, reset_code=None, is_verified=False, requests_available=20)
         self.db.session.add(user)
         self.db.session.commit()
         return user
@@ -163,14 +163,14 @@ class Database:
         self.db.session.commit()
         return
     
-    def update_verification_code(self, user: User, verification_code: str) -> None:
+    def update_reset_code(self, user: User, reset_code: str) -> None:
         """
-        Update the verification code for a user.
+        Update the reset code for a user.
 
         Args
         ----
         user (User): The user object.
-        verification_code (str): The new verification code.
+        reset_code (str): The new reset code.
 
         Returns
         -------
@@ -178,7 +178,7 @@ class Database:
 
         Author: ``@ChinaiArman``
         """
-        user.verification_code = verification_code
+        user.reset_code = reset_code
         self.db.session.commit()
         return
     
@@ -198,7 +198,7 @@ class Database:
         Author: ``@ChinaiArman``
         """
         user.password = password
-        user.verification_code = None
+        user.reset_code = None
         self.db.session.commit()
         return
 
@@ -238,6 +238,8 @@ class Database:
 
         Author: ``@ChinaiArman``
         """
+        if not user.is_verified:
+            raise ImpermissibleUserRequest
         user.api_key = api_key
         self.db.session.commit()
         return

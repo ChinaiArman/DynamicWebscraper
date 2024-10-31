@@ -23,6 +23,7 @@ class User(db.Model):
     is_verified = db.Column(db.Boolean, default=False)
     requests_available = db.Column(db.Integer, default=20)
     verification_code = db.Column(db.String(6), nullable=True)
+    reset_code = db.Column(db.String(6), nullable=True)
     api_key = db.Column(db.String(50), nullable=True)
     last_scrape = db.Column(db.DateTime, nullable=True)
 
@@ -49,6 +50,7 @@ class User(db.Model):
             'is_verified': self.is_verified,
             'requests_available': self.requests_available,
             'verification_code': self.verification_code,
+            'reset_code': self.reset_code,
             'api_key': self.api_key,
             'last_scrape': self.last_scrape
         }

@@ -80,7 +80,7 @@ def register() -> tuple:
         email = request.json.get('email')
         password = authenticator.encrypt_password(request.json.get('password'))
         name = request.json.get('name')
-        verification_code = authenticator.generate_verification_code()
+        verification_code = authenticator.generate_one_time_code()
         user = db.create_user(email, password, name, verification_code)
         session.permanent = True
         session["user_id"] = user.id
@@ -108,19 +108,19 @@ def reset_password() -> tuple:
         db = current_app.config['database']
         authenticator = current_app.config['authenticator']
         email = request.json.get('email')
-        verification_code = request.json.get('verification_code')
+        reset_code = request.json.get('reset_code')
         password = authenticator.encrypt_password(request.json.get('password'))
         user = db.get_user_by_email(email)
-        authenticator.verify_verification_code(verification_code, user.verification_code)
+        authenticator.verify_code(reset_code, user.reset_code)
         db.update_password(user, password)
         return jsonify({"message": "password reset successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
-@authentication_bp.route('/authenticate/generate-verification/', methods=['POST'])
-def generate_verification() -> tuple:
+@authentication_bp.route('/authenticate/request-password-reset/', methods=['POST'])
+def request_password_reset() -> tuple:
     """
-    Generate a verification code for a user.
+    Request a password reset.
 
     Args
     ----
@@ -137,10 +137,10 @@ def generate_verification() -> tuple:
         authenticator = current_app.config['authenticator']
         email = request.json.get('email')
         user = db.get_user_by_email(email)
-        verification_code = authenticator.generate_verification_code()
-        db.update_verification_code(user, verification_code)
+        reset_code = authenticator.generate_one_time_code()
+        db.update_reset_code(user, reset_code)
         # TODO: SEND VERIFICATION EMAIL
-        return jsonify({"message": "verification code sent"}), 200
+        return jsonify({"message": "reset code sent"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -165,7 +165,7 @@ def verify() -> tuple:
         user_id = session.get('user_id')
         user = db.get_user_by_id(user_id)
         verification_code = request.json.get('verification_code')
-        authenticator.verify_verification_code(verification_code, user.verification_code)
+        authenticator.verify_code(verification_code, user.verification_code)
         api_key = authenticator.generate_api_key()
         db.verify_user(user, api_key)
         return jsonify({"message": "verification successful"}), 200

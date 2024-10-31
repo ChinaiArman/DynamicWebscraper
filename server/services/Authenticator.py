@@ -5,7 +5,7 @@
 import bcrypt
 import secrets
 
-from exceptions import NoCreditsRemaining, IncorrectPassword, InvalidVerificationCode
+from exceptions import NoCreditsRemaining, IncorrectPassword, InvalidOneTimeCode
 
 
 # AUTHENTICATOR CLASS
@@ -119,9 +119,9 @@ class Authenticator:
         """
         return secrets.token_hex(25)
     
-    def generate_verification_code(self) -> str:
+    def generate_one_time_code(self) -> str:
         """
-        Generate a new verification code.
+        Generate a new 6 digit code.
 
         Args
         ----
@@ -129,7 +129,7 @@ class Authenticator:
 
         Returns
         -------
-        str: The new verification code.
+        str: The new 6 digit code.
 
         Disclaimer
         ----------
@@ -139,25 +139,25 @@ class Authenticator:
         """
         return secrets.token_hex(3)
     
-    def verify_verification_code(self, code: str, user_code: str) -> bool:
+    def verify_code(self, code: str, user_code: str) -> bool:
         """
-        Verify a verification code.
+        Verify a one-time code.
 
         Args
         ----
-        code (str): The verification code to verify.
-        user_code (str): The user's verification code.
+        code (str): The one-time code to verify.
+        user_code (str): The user's one-time code.
 
         Returns
         -------
-        bool: True if the verification code is correct, otherwise False.
+        bool: True if the one-time code is correct, otherwise False.
 
         Raises
         ------
-        InvalidVerificationCode: If the verification code is incorrect.
+        InvalidOneTimeCode: If the one-time code is incorrect.
 
         Author: ``@ChinaiArman``
         """
         if code != user_code or not user_code:
-            raise InvalidVerificationCode
+            raise InvalidOneTimeCode
         return True

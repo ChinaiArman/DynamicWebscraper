@@ -103,13 +103,30 @@ class UserNotFound(Exception):
         self.message = message
         super().__init__(self.message)
 
-class InvalidVerificationCode(Exception):
+class InvalidOneTimeCode(Exception):
     """
-    An error occurred if the verification code is invalid.
+    An error occurred if the one-time code is invalid.
     """
-    def __init__(self, message="Invalid verification code"):
+    def __init__(self, message="Invalid one-time code"):
         """
-        Constructor for InvalidVerificationCode class.
+        Constructor for InvalidOneTimeCode class.
+
+        Args
+        ----
+        message (str): Exception message.
+
+        Author: ``@ChinaiArman``
+        """
+        self.message = message
+        super().__init__(self.message)
+
+class ImpermissibleUserRequest(Exception):
+    """
+    An error occurred if the request is not allowed.
+    """
+    def __init__(self, message="Inpermissible request"):
+        """
+        Constructor for InpermissibleRequest class.
 
         Args
         ----
