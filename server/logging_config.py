@@ -14,25 +14,17 @@ def configure_logging(app) -> None:
     """
     Configure the logging for the application to write to two log files: app.log and error.log
 
-    Args:
-    -----
+    Args
+    ----
     app (Flask): The Flask application instance.
 
-    Returns:
-    --------
+    Returns
+    -------
     None
 
-    Notes:
-    ------
-    1. The app.log file contains INFO logs.
-    2. The error.log file contains ERROR logs.
-    3. The log files are stored in the `server/logs/` directory.
-
-    Example:
-    --------
-    >>> app = Flask(__name__)
-    >>> configure_logging(app)
-    ... # Log files created in `server/logs/` directory
+    Disclaimer
+    ----------
+    This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 
     Author: ``@ChinaiArman``
     """
@@ -59,24 +51,17 @@ def create_response_functions(app) -> None:
     """
     Create functions to log incoming requests, outgoing responses and errors.
 
-    Args:
-    -----
+    Args
+    ----
     app (Flask): The Flask application instance.
 
-    Returns:
-    --------
+    Returns
+    -------
     None
 
-    Notes:
-    ------
-    1. The functions log incoming requests, outgoing responses and errors.
-    2. The functions are executed before and after each request.
-
-    Example:
-    --------
-    >>> app = Flask(__name__)
-    >>> create_response_functions(app)
-    ... # Functions created to log incoming requests, outgoing responses and errors
+    Disclaimer
+    ----------
+    This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 
     Author: ``@ChinaiArman``
     """
@@ -101,23 +86,13 @@ def init_log_files() -> None:
     """
     Initialize the log files for the application.
 
-    Args:
-    -----
+    Args
+    ----
     None
 
-    Returns:
-    --------
+    Returns
+    -------
     None
-
-    Notes:
-    ------
-    1. The log files are stored in the `server/logs/` directory.
-    2. The log files are created if they do not exist.
-
-    Example:
-    --------
-    >>> init_log_files()
-    ... # Log files created in `server/logs/` directory
 
     Author: ``@ChinaiArman``
     """

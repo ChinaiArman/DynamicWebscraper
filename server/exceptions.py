@@ -9,8 +9,8 @@ class InvalidAPIKey(Exception):
         """
         Constructor for InvalidAPIKey class.
 
-        Args:
-        -----
+        Args
+        ----
         message (str): Exception message.
 
         Author: ``@ChinaiArman``
@@ -26,8 +26,8 @@ class NoCreditsRemaining(Exception):
         """
         Constructor for NoCreditsRemaining class.
 
-        Args:
-        -----
+        Args
+        ----
         message (str): Exception message.
 
         Author: ``@ChinaiArman``
@@ -43,8 +43,8 @@ class InvalidEmailAddress(Exception):
         """
         Constructor for InvalidEmailAddress class.
 
-        Args:
-        -----
+        Args
+        ----
         message (str): Exception message.
 
         Author: ``@ChinaiArman``
@@ -60,8 +60,8 @@ class IncorrectPassword(Exception):
         """
         Constructor for IncorrectPassword class.
 
-        Args:
-        -----
+        Args
+        ----
         message (str): Exception message.
 
         Author: ``@ChinaiArman``
@@ -77,8 +77,8 @@ class EmailAddressAlreadyInUse(Exception):
         """
         Constructor for EmailAddressAlreadyInUse class.
 
-        Args:
-        -----
+        Args
+        ----
         message (str): Exception message.
 
         Author: ``@ChinaiArman``
@@ -94,8 +94,8 @@ class UserNotFound(Exception):
         """
         Constructor for UserNotFound class.
 
-        Args:
-        -----
+        Args
+        ----
         message (str): Exception message.
 
         Author: ``@ChinaiArman``
@@ -111,8 +111,8 @@ class InvalidVerificationCode(Exception):
         """
         Constructor for InvalidVerificationCode class.
 
-        Args:
-        -----
+        Args
+        ----
         message (str): Exception message.
 
         Author: ``@ChinaiArman``

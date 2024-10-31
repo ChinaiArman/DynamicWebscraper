@@ -25,23 +25,17 @@ def configure_db(app) -> None:
     """
     Configure the MYSQL database connection.
 
-    Args:
-    -----
+    Args
+    ----
     app (Flask): The Flask application instance.
 
-    Returns:
-    --------
+    Returns
+    -------
     None
 
-    Notes:
-    ------
-    1. The database connection is configured using the environment variables.
-    2. The database connection is initialized.
-
-    Example:
-    --------
-    >>> configure_db(app)
-    ... # Database connection configured
+    Disclaimer
+    ----------
+    This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 
     Author: ``@ChinaiArman``
     """
