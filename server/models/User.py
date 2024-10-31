@@ -8,6 +8,11 @@ from db_config import db
 # USER DATA CLASS
 class User(db.Model):
     """
+    A data class to represent a user in the database.
+
+    Disclaimer
+    ----------
+    This class was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
     """
     __tablename__ = 'users'
 
@@ -23,8 +28,19 @@ class User(db.Model):
 
     scrapes = db.relationship('Scrape', back_populates='user')
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
+        Return the string representation of the user.
+
+        Args
+        ----
+        None
+
+        Returns
+        -------
+        str: The string representation of the user.
+
+        Author: ``@ChinaiArman``
         """
         return {
             'id': self.id,

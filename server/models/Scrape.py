@@ -8,6 +8,11 @@ from db_config import db
 # SCRAPE DATA CLASS
 class Scrape(db.Model):
     """
+    A data class to represent a scrape in the database.
+
+    Disclaimer
+    ----------
+    This class was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
     """
     __tablename__ = 'scrapes'
 
@@ -20,8 +25,19 @@ class Scrape(db.Model):
 
     user = db.relationship('User', back_populates='scrapes')
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
+        Return the string representation of the scrape.
+
+        Args
+        ----
+        None
+
+        Returns
+        -------
+        str: The string representation of the scrape.
+
+        Author: ``@ChinaiArman``
         """
         return {
             'id': self.id,
