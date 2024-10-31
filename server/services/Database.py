@@ -243,3 +243,22 @@ class Database:
         user.api_key = api_key
         self.db.session.commit()
         return
+
+    def update_name(self, user: User, name: str) -> None:
+        """
+        Update the name for a user.
+
+        Args
+        ----
+        user (User): The user object.
+        name (str): The new user name.
+
+        Returns
+        -------
+        None
+
+        Author: ``@ChinaiArman``
+        """
+        user.name = name
+        self.db.session.commit()
+        return

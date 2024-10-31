@@ -103,3 +103,29 @@ def get_scrape_history() -> tuple:
         return jsonify({"scrapes": [scrape.to_dict() for scrape in scrapes]}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+@database_bp.route('/database/change-name/', methods=['POST'])
+@login_required
+def change_name() -> tuple:
+    """
+    Change the name of the user.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    tuple: The response and status code.
+
+    Author: ``@ChinaiArman``
+    """
+    try:
+        db = current_app.config['database']
+        user_id = session["user_id"]
+        name = request.json.get('name')
+        user = db.get_user_by_id(user_id)
+        db.update_user(user, name)
+        return jsonify({"message": "name changed"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
