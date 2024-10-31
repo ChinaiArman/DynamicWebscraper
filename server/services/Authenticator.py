@@ -5,7 +5,7 @@
 import bcrypt
 import secrets
 
-from exceptions import NoCreditsRemaining, IncorrectPassword
+from exceptions import NoCreditsRemaining, IncorrectPassword, InvalidVerificationCode
 
 
 # AUTHENTICATOR CLASS
@@ -46,4 +46,11 @@ class Authenticator:
         """
         """
         return secrets.token_hex(3)
+    
+    def verify_verification_code(self, code, user_code):
+        """
+        """
+        if code != user_code or not user_code:
+            raise InvalidVerificationCode
+        return True
     

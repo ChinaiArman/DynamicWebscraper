@@ -45,3 +45,21 @@ class EmailAddressAlreadyInUse(Exception):
         """
         self.message = message
         super().__init__(self.message)
+
+class UserNotFound(Exception):
+    """
+    """
+    def __init__(self, message="Invalid user ID"):
+        """
+        """
+        self.message = message
+        super().__init__(self.message)
+
+class InvalidVerificationCode(Exception):
+    """
+    """
+    def __init__(self, message="Invalid verification code"):
+        """
+        """
+        self.message = message
+        super().__init__(self.message)
