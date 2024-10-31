@@ -11,7 +11,11 @@ scraping_bp = Blueprint('scraping_bp', __name__)
 
 # API KEY DECORATOR
 def api_key_required(func):
+    """
+    """
     def wrapper(*args, **kwargs):
+        """
+        """
         db = current_app.config['database']
         authenticator = current_app.config['authenticator']
         api_key = request.headers.get('Authorization')

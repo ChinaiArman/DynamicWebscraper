@@ -105,4 +105,3 @@ def verify():
         return jsonify({"message": "verification successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
-
