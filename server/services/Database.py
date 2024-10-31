@@ -142,7 +142,7 @@ class Database:
             raise InvalidEmailAddress
         return user
     
-    def verify_user(self, user: User, api_key: str) -> User:
+    def verify_user(self, user: User, api_key: str) -> None:
         """
         Verify a user.
 
@@ -153,7 +153,7 @@ class Database:
 
         Returns
         -------
-        user (User): The user object.
+        None
 
         Author: ``@ChinaiArman``
         """
@@ -161,9 +161,9 @@ class Database:
         user.verification_code = None
         user.api_key = api_key
         self.db.session.commit()
-        return user
+        return
     
-    def update_verification_code(self, user: User, verification_code: str) -> User:
+    def update_verification_code(self, user: User, verification_code: str) -> None:
         """
         Update the verification code for a user.
 
@@ -174,15 +174,15 @@ class Database:
 
         Returns
         -------
-        user (User): The user object.
+        None
 
         Author: ``@ChinaiArman``
         """
         user.verification_code = verification_code
         self.db.session.commit()
-        return user
+        return
     
-    def update_password(self, user: User, password: str) -> User:
+    def update_password(self, user: User, password: str) -> None:
         """
         Update the password for a user.
 
@@ -193,11 +193,51 @@ class Database:
 
         Returns
         -------
-        user (User): The user object.
+        None
 
         Author: ``@ChinaiArman``
         """
         user.password = password
         user.verification_code = None
         self.db.session.commit()
-        return user
+        return
+
+    def get_scrapes_by_user_id(self, user_id: int) -> list:
+        """
+        Get scrapes by user ID.
+
+        Args
+        ----
+        user_id (int): User ID.
+
+        Returns
+        -------
+        scrapes (list): The list of scrapes.
+
+        Disclaimer
+        ----------
+        This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
+
+        Author: ``@ChinaiArman``
+        """
+        scrapes = self.db.session.query(Scrape).filter(Scrape.user_id == user_id).all()
+        return scrapes
+    
+    def reset_api_key(self, user: User, api_key: str) -> None:
+        """
+        Reset a user's API key.
+
+        Args
+        ----
+        user (User): The user object.
+        api_key (str): The new user API key.
+
+        Returns
+        -------
+        None
+
+        Author: ``@ChinaiArman``
+        """
+        user.api_key = api_key
+        self.db.session.commit()
+        return

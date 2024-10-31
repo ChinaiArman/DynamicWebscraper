@@ -171,3 +171,29 @@ def verify() -> tuple:
         return jsonify({"message": "verification successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
+
+@authentication_bp.route('/authenticate/reset-api-key/', methods=['POST'])
+def reset_api_key() -> tuple:
+    """
+    Reset a user's API key.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+
+    Author: ``@ChinaiArman``
+    """
+    try:
+        db = current_app.config['database']
+        authenticator = current_app.config['authenticator']
+        user_id = session.get('user_id')
+        user = db.get_user_by_id(user_id)
+        api_key = authenticator.generate_api_key()
+        db.reset_api_key(user, api_key)
+        return jsonify({"message": "API key reset successful"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401

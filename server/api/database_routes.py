@@ -58,21 +58,48 @@ def login_required(func: callable) -> callable:
 # ROUTES
 @database_bp.route('/database/get-user-information/', methods=['GET'])
 @login_required
-def get_user_information():
+def get_user_information() -> tuple:
     """
+    Get user information.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    tuple: The user information and status code.
+
+    Author: ``@ChinaiArman``
     """
-    return jsonify({"message": "get user information endpoint"})
+    try:
+        db = current_app.config['database']
+        user_id = session["user_id"]
+        user = db.get_user_by_id(user_id)
+        return jsonify({"user": user.to_dict()}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 @database_bp.route('/database/get-scrape-history/', methods=['GET'])
 @login_required
-def get_scrape_history():
+def get_scrape_history() -> tuple:
     """
-    """
-    return jsonify({"message": "get scrape history endpoint"})
+    Get scrape history.
 
-@database_bp.route('/database/save-scrape/', methods=['POST'])
-@login_required
-def save_scrape():
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    tuple: The scrape history and status code.
+
+    Author: ``@ChinaiArman``
     """
-    """
-    return jsonify({"message": "save scrape endpoint"})
+    try:
+        db = current_app.config['database']
+        user_id = session["user_id"]
+        scrapes = db.get_scrapes_by_user_id(user_id)
+        return jsonify({"scrapes": [scrape.to_dict() for scrape in scrapes]}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
