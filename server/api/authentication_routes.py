@@ -4,6 +4,8 @@
 # IMPORTS
 from flask import Blueprint, jsonify, request, current_app, session
 
+from services.decorators import login_required
+
 
 # DEFINE BLUEPRINT
 authentication_bp = Blueprint('authentication_bp', __name__)
@@ -37,6 +39,7 @@ def login() -> tuple:
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/logout/', methods=['POST'])
+@login_required
 def logout() -> tuple:
     """
     Logout a user.
@@ -135,6 +138,7 @@ def request_password_reset() -> tuple:
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/verify/', methods=['POST'])
+@login_required
 def verify() -> tuple:
     """
     Verify a user.
@@ -161,6 +165,7 @@ def verify() -> tuple:
         return jsonify({"error": str(e)}), 401
 
 @authentication_bp.route('/authenticate/reset-api-key/', methods=['POST'])
+@login_required
 def reset_api_key() -> tuple:
     """
     Reset a user's API key.
