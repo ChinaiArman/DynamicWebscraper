@@ -188,3 +188,25 @@ def reset_api_key() -> tuple:
         return jsonify({"message": "API key reset successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
+
+@authentication_bp.route('/authenticate/user-is-admin/', methods=['POST'])
+@login_required
+def user_is_admin() -> tuple:
+    """
+    Check if a user is an admin.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+    """
+    try:
+        db = current_app.config['database']
+        user_id = session.get('user_id')
+        user = db.get_user_by_id(user_id)
+        return jsonify({"is_admin": user.is_admin}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
