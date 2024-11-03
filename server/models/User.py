@@ -25,7 +25,7 @@ class User(db.Model):
     verification_code = db.Column(db.String(6), nullable=True)
     reset_code = db.Column(db.String(6), nullable=True)
     api_key = db.Column(db.String(50), nullable=True)
-    last_scrape = db.Column(db.DateTime, nullable=True)
+    last_request = db.Column(db.DateTime, nullable=True)
 
     scrapes = db.relationship('Scrape', back_populates='user')
 
@@ -50,5 +50,5 @@ class User(db.Model):
             'verification_code': self.verification_code,
             'reset_code': self.reset_code,
             'api_key': self.api_key,
-            'last_scrape': self.last_scrape
+            'last_request': self.last_request
         }

@@ -51,7 +51,7 @@ class Database:
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
         """
         if self.db.session.query(User).filter(User.email == email).first():
-            raise EmailAddressAlreadyInUse
+            raise EmailAddressAlreadyInUse()
         user = User(email=email, password=password, name=name, verification_code=verification_code, reset_code=None, is_verified=False, requests_available=20)
         self.db.session.add(user)
         self.db.session.commit()
@@ -79,7 +79,7 @@ class Database:
         """
         user = self.db.session.query(User).filter(User.id == user_id).first()
         if not user:
-            raise UserNotFound
+            raise UserNotFound()
         return user
 
     def get_user_by_api_key(self, api_key: str) -> User:
@@ -104,7 +104,7 @@ class Database:
         """
         user = self.db.session.query(User).filter(User.api_key == api_key).first()
         if not user:
-            raise InvalidAPIKey
+            raise InvalidAPIKey()
         return user
 
     def get_user_by_email(self, email: str) -> User:
@@ -129,7 +129,7 @@ class Database:
         """
         user = self.db.session.query(User).filter(User.email == email).first()
         if not user:
-            raise InvalidEmailAddress
+            raise InvalidEmailAddress()
         return user
     
     def verify_user(self, user: User, api_key: str) -> None:
@@ -219,7 +219,7 @@ class Database:
         None
         """
         if not user.is_verified:
-            raise ImpermissibleUserRequest
+            raise ImpermissibleUserRequest()
         user.api_key = api_key
         self.db.session.commit()
         return
@@ -238,5 +238,37 @@ class Database:
         None
         """
         user.name = name
+        self.db.session.commit()
+        return
+    
+    def decrement_requests(self, user: User) -> None:
+        """
+        Decrement the number of requests available for a user.
+
+        Args
+        ----
+        user (User): The user object.
+
+        Returns
+        -------
+        None
+        """
+        user.requests_available -= 1
+        self.db.session.commit()
+        return
+    
+    def reset_requests(self, user: User) -> None:
+        """
+        Reset the number of requests available for a user.
+
+        Args
+        ----
+        user (User): The user object.
+
+        Returns
+        -------
+        None
+        """
+        user.requests_available = 20
         self.db.session.commit()
         return

@@ -64,6 +64,7 @@ def api_key_required(func: callable) -> callable:
     ----------
     This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
     """
+    @wraps(func)
     def wrapper(*args, **kwargs) -> callable:
         """
         The wrapper function for the decorator.
@@ -84,13 +85,17 @@ def api_key_required(func: callable) -> callable:
         db = current_app.config['database']
         authenticator = current_app.config['authenticator']
         api_key = request.headers.get('Authorization')
-        if api_key and api_key.startswith("Bearer "):
-            try:
+        try:
+            if api_key and api_key.startswith("Bearer "):
                 api_key = api_key.split(" ")[1]
                 user = db.get_user_by_api_key(api_key)
-                authenticator.is_scrape_available(user)
+                is_reset_available = authenticator.is_scrape_available(user)
+                if is_reset_available:
+                    db.reset_requests(user)
+                db.decrement_requests(user)
                 return func(*args, **kwargs)
-            except Exception as e:
-                return jsonify({"error": str(e)}), 401
-    wrapper.__name__ = func.__name__
+            else:
+                raise Exception("API key required")
+        except Exception as e:
+            return jsonify({"error": str(e)}), 401
     return wrapper
