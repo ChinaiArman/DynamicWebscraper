@@ -44,7 +44,7 @@ class Authenticator:
         NoCreditsRemaining: If the user has no credits remaining.
         """
         if user.requests_available <= 0:
-            raise NoCreditsRemaining
+            raise NoCreditsRemaining()
         return True
     
     def encrypt_password(self, password: str) -> str:
@@ -88,7 +88,7 @@ class Authenticator:
         This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
         """
         if not bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
-            raise IncorrectPassword
+            raise IncorrectPassword()
         return True
         
     def generate_api_key(self) -> str:
@@ -145,5 +145,5 @@ class Authenticator:
         InvalidOneTimeCode: If the one-time code is incorrect.
         """
         if code != user_code or not user_code:
-            raise InvalidOneTimeCode
+            raise InvalidOneTimeCode()
         return True

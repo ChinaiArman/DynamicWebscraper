@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 import time
 import random
 
+from exceptions import FetchRequestFailed
+
 # SCRAPER CLASS
 class Scraper:
     """
@@ -61,11 +63,7 @@ class Scraper:
             soup = BeautifulSoup(response.text, 'html.parser')
             for data in soup(['style', 'script']):
                 data.decompose()
-            text = ' '.join(soup.stripped_strings)
-            return text
-        except requests.exceptions.RequestException:
-            print(f"Error fetching URL: {url}")
-            return ""
+            return ' '.join(soup.stripped_strings)
         except Exception as e:
-            print(f"Error: {url}")
-            return ""
+            raise FetchRequestFailed(f"Failed to fetch URL: {url} - {str(e)}") 
+            

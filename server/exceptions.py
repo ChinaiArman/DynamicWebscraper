@@ -120,3 +120,33 @@ class ImpermissibleUserRequest(Exception):
         """
         self.message = message
         super().__init__(self.message)
+
+class FetchRequestFailed(Exception):
+    """
+    An error occurred if the fetch request failed.
+    """
+    def __init__(self, message="Fetch request failed"):
+        """
+        Constructor for FetchRequestFailed class.
+
+        Args
+        ----
+        message (str): Exception message.
+        """
+        self.message = message
+        super().__init__(self.message)
+
+class LLMRequestFailed(Exception):
+    """
+    An error occurred if the LLM request failed.
+    """
+    def __init__(self, message="LLM request failed"):
+        """
+        Constructor for LLMRequestFailed class.
+
+        Args
+        ----
+        message (str): Exception message.
+        """
+        self.message = message
+        super().__init__(self.message)
