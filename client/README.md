@@ -1,32 +1,29 @@
-# Client Setup with Vite and Vue
+# client1
 
-This guide covers the installation steps to set up the frontend environment in the `client` folder using Vite and Vue.
+This template should help get you started developing with Vue 3 in Vite.
 
-## Prerequisites
+## Recommended IDE Setup
 
-Make sure you have the following installed:
-- **Node.js** (version 16 or later)
-- **npm** (comes with Node.js)
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Installation Steps
+## Customize configuration
 
-1. **Navigate to the Client Folder**  
-   First, navigate to the `client` folder in your terminal:
-   ```bash
-   cd path/to/project/client
+See [Vite Configuration Reference](https://vite.dev/config/).
 
-    Install Dependencies
-    Run the following command to install all necessary dependencies, including Vite and Vue:
+## Project Setup
 
-    bash
-
+```sh
 npm install
+```
 
-Start the Development Server
-Once the installation is complete, you can start the development server with:
+### Compile and Hot-Reload for Development
 
-bash
-
+```sh
 npm run dev
+```
 
-After running this, Vite will start the server and provide a local URL (typically http://localhost:3000) where you can view the app.
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
