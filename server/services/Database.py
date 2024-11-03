@@ -2,6 +2,8 @@
 """
 
 # IMPORTS
+from datetime import datetime
+
 from models.Scrape import Scrape
 from models.User import User
 
@@ -253,6 +255,7 @@ class Database:
         -------
         None
         """
+        user.last_request = datetime.now()
         user.requests_available -= 1
         self.db.session.commit()
         return
@@ -272,3 +275,27 @@ class Database:
         user.requests_available = 20
         self.db.session.commit()
         return
+
+    def create_scrape(self, user_id: int, url: str, prompt: str, response: str) -> Scrape:
+        """
+        Create a new scrape in the database.
+
+        Args
+        ----
+        user_id (int): User ID.
+        url (str): Scrape URL.
+        prompt (str): Scrape prompt.
+        response (str): Scrape response.
+
+        Returns
+        -------
+        scrape (Scrape): The scrape object.
+
+        Disclaimer
+        ----------
+        This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
+        """
+        scrape = Scrape(user_id=user_id, url=url, prompt=prompt, response=response, created_at=datetime.now())
+        self.db.session.add(scrape)
+        self.db.session.commit()
+        return scrape

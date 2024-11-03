@@ -28,9 +28,8 @@ def get_user_information() -> tuple:
     try:
         db = current_app.config['database']
         user_id = session["user_id"]
-        user = db.get_user_by_id(user_id)
-        user_dict = vars(user)
-        return jsonify({"user": user_dict}), 200
+        user = db.get_user_by_id(user_id).to_dict()
+        return jsonify(user), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 

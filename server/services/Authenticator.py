@@ -47,7 +47,7 @@ class Authenticator:
         last_request = user.last_request
         now = datetime.now()
         start_of_today = now.replace(hour=0, minute=0, second=0, microsecond=0)
-        if last_request and last_request >= start_of_today:
+        if last_request and last_request < start_of_today:
             return True
         if user.requests_available <= 0:
             raise NoCreditsRemaining()

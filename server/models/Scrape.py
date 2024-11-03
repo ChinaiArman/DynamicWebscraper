@@ -25,9 +25,9 @@ class Scrape(db.Model):
 
     user = db.relationship('User', back_populates='scrapes')
 
-    def __repr__(self) -> str:
+    def to_dict(self) -> dict:
         """
-        Return the string representation of the scrape.
+        Return the dictionary representation of the scrape.
 
         Args
         ----
@@ -35,7 +35,7 @@ class Scrape(db.Model):
 
         Returns
         -------
-        str: The string representation of the scrape.
+        dict: The dictionary representation of the scrape.
         """
         return {
             'id': self.id,

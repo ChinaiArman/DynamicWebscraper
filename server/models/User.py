@@ -25,13 +25,14 @@ class User(db.Model):
     verification_code = db.Column(db.String(6), nullable=True)
     reset_code = db.Column(db.String(6), nullable=True)
     api_key = db.Column(db.String(50), nullable=True)
+    is_admin = db.Column(db.Boolean, default=False)
     last_request = db.Column(db.DateTime, nullable=True)
 
     scrapes = db.relationship('Scrape', back_populates='user')
 
-    def __repr__(self) -> str:
+    def to_dict(self) -> dict:
         """
-        Return the string representation of the user.
+        Return the dictionary representation of the user.
 
         Args
         ----
@@ -39,16 +40,15 @@ class User(db.Model):
 
         Returns
         -------
-        str: The string representation of the user.
+        dict: The dictionary representation of the user.
         """
         return {
-            'id': self.id,
-            'email': self.email,
-            'name': self.name,
-            'is_verified': self.is_verified,
-            'requests_available': self.requests_available,
-            'verification_code': self.verification_code,
-            'reset_code': self.reset_code,
-            'api_key': self.api_key,
-            'last_request': self.last_request
+            "id": self.id,
+            "email": self.email,
+            "name": self.name,
+            "api_key": self.api_key,
+            "is_verified": self.is_verified,
+            "requests_available": self.requests_available,
+            "is_admin": self.is_admin,
+            "last_request": self.last_request
         }
