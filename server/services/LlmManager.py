@@ -17,14 +17,42 @@ LLM_PROXY = os.getenv('LLM_PROXY')
 # LLM Manager CLASS
 class LLMManager:
     """
+    A class to interact with the Language Learning Model (LLM) API.
+
+    Disclaimer
+    ----------
+    This class was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
     """
     def __init__(self):
         """
+        Initialize the LLMManager class.
+
+        Args
+        ----
+        None
         """
         self.proxy = LLM_PROXY
 
     def query(self, question: str, context: str) -> dict:
         """
+        Query the LLM API with a question and context.
+
+        Args
+        ----
+        question (str): The question to ask the model.
+        context (str): The context to provide to the model.
+
+        Returns
+        -------
+        dict: The response from the LLM API.
+
+        Raises
+        ------
+        LLMRequestFailed: If the request to the LLM API fails.
+
+        Disclaimer
+        ----------
+        This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
         """
         data = {
             "question": question,

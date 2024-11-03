@@ -13,6 +13,10 @@ from exceptions import FetchRequestFailed
 class Scraper:
     """
     A class to scrape a website and return the text content.
+
+    Disclaimer
+    ----------
+    This class was created with the assistance of AI tools (GitHub Copilot and ChatGPT). All code created is original and has been reviewed and understood by a human developer.
     """
     def __init__(self, headers=None, timeout=10):
         """
@@ -51,9 +55,13 @@ class Scraper:
         -------
         str: The text content of the URL.
 
+        Raises
+        ------
+        FetchRequestFailed: If the request to the URL fails.
+
         Disclaimer
         ----------
-        Part of this function was created with the assistance of AI tools (GitHub Copilot and ChatGPT). All code created is original and has been reviewed and understood by a human developer.
+        This function was created with the assistance of AI tools (GitHub Copilot and ChatGPT). All code created is original and has been reviewed and understood by a human developer.
         """
         try: 
             time.sleep(random.randint(1, 3))

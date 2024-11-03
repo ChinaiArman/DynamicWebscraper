@@ -1,3 +1,7 @@
+"""
+"""
+
+# IMPORTS
 import os
 from flask import Flask, request, jsonify
 from haystack import Document
@@ -25,7 +29,22 @@ reader.warm_up()
 
 # ROUTES
 @app.route('/query', methods=['POST'])
-def query():
+def query() -> tuple:
+    """
+    Query the AI model.
+    
+    Args
+    ----
+    None
+    
+    Returns
+    -------
+    tuple: The response tuple containing the response data and status code.
+
+    Disclaimer
+    ----------
+    This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
+    """
     try:
         # Get the question and context from the request
         data = request.json

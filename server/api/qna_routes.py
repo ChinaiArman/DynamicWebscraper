@@ -16,6 +16,15 @@ qna_bp = Blueprint('qna_bp', __name__)
 @api_key_required
 def qna() -> tuple:
     """
+    Query the AI server.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
     """
     try:
         # Get the URL from the request

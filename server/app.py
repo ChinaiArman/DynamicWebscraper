@@ -16,7 +16,6 @@ from services.Scraper import Scraper
 from services.EmailManager import EmailManager
 
 from db_config import db, configure_db
-from logging_config import configure_logging
 from session_config import configure_sessions
 
 
@@ -39,9 +38,6 @@ def create_app() -> Flask:
 
     # DATABASE CONFIGURATION
     configure_db(app)
-
-    # LOGGING CONFIGURATION
-    configure_logging(app)
 
     # CONFIGURE SESSIONS
     configure_sessions(app, db)

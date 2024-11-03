@@ -39,11 +39,11 @@ class Authenticator:
         Returns
         -------
         bool: True if the user has a credit reset available, otherwise False.
+
         Raises
         ------
         NoCreditsRemaining: If the user has no credits remaining.
         """
-        # check if the datetime of the last request was yesterday or earlier
         last_request = user.last_request
         now = datetime.now()
         start_of_today = now.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -153,5 +153,3 @@ class Authenticator:
         if code != user_code or not user_code:
             raise InvalidOneTimeCode()
         return True
-    
-
