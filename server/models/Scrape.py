@@ -20,7 +20,7 @@ class Scrape(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     url = db.Column(db.String(1000), nullable=False)
     prompt = db.Column(db.String(1000), nullable=False)
-    data = db.Column(db.Text, nullable=False)
+    response = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
 
     user = db.relationship('User', back_populates='scrapes')
@@ -42,6 +42,6 @@ class Scrape(db.Model):
             'user_id': self.user_id,
             'url': self.url,
             'prompt': self.prompt,
-            'data': self.data,
+            'response': self.response,
             'created_at': self.created_at
         }
