@@ -38,6 +38,14 @@ def qna() -> tuple:
         # Query the AI server
         llm_manager = current_app.config['llmManager']
         response = llm_manager.query(prompt, context)
+
+        # Get user information from API key
+        api_key = request.headers.get('Authorization').split(" ")[1]
+        db = current_app.config['database']
+        user = db.get_user_by_api_key(api_key)
+        db.create_scrape(user.id, url, prompt, str(response))
+
+        # Return the response
         return jsonify(response), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
