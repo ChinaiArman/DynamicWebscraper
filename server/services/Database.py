@@ -299,3 +299,22 @@ class Database:
         self.db.session.add(scrape)
         self.db.session.commit()
         return scrape
+
+    def get_all_users(self) -> list:
+        """
+        Get all users.
+
+        Args
+        ----
+        None
+
+        Returns
+        -------
+        users (list): The list of users.
+
+        Disclaimer
+        ----------
+        This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
+        """
+        users = self.db.session.query(User).all()
+        return users

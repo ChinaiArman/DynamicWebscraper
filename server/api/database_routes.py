@@ -4,7 +4,7 @@
 # IMPORTS
 from flask import Blueprint, jsonify, request, current_app, session
 
-from services.decorators import login_required
+from services.decorators import login_required, admin_required
 
 # DEFINE BLUEPRINT
 database_bp = Blueprint('database_bp', __name__)
@@ -76,5 +76,26 @@ def change_name() -> tuple:
         user = db.get_user_by_id(user_id)
         db.update_user(user, name)
         return jsonify({"message": "name changed"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+@database_bp.route('/database/get-all-users/', methods=['POST'])
+@admin_required
+def get_all_users() -> tuple:
+    """
+    Get all users.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    tuple: The users and status code.
+    """
+    try:
+        db = current_app.config['database']
+        users = db.get_all_users()
+        return jsonify({"users": [user.to_dict() for user in users]}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
