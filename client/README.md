@@ -22,6 +22,11 @@ npm install
 npm run dev
 ```
 
+A note for Mac users:
+
+- If you're running into permission issues: `sudo chown -R {username} node_modules`
+- then do `npm run dev` again
+
 ### Compile and Minify for Production
 
 ```sh
