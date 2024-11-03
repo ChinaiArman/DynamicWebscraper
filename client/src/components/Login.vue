@@ -63,6 +63,7 @@ export default {
 
 <script>
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 export default {
   data() {
@@ -81,7 +82,9 @@ export default {
         });
         this.message = response.data.message;
         // Handle successful login, e.g., redirect or update user state
-        this.$router.push('/'); // Redirect to homepage or dashboard
+        if (response.status === 200) {
+          this.$router.push('/admin');
+        }
       } catch (error) {
         this.message = error.response.data.error || 'Login failed.';
       }
