@@ -2,18 +2,18 @@
     "version": 2,
     "builds": [
         {
-            "src": "run.py",
+            "src": "server/run.py",
             "use": "@vercel/python"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "run.py"
+            "dest": "server/run.py"
         }
     ],
     "functions": {
-        "run.py": {
+        "server/run.py": {
             "maxDuration": 60
         }
     }
