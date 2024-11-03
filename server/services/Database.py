@@ -240,3 +240,35 @@ class Database:
         user.name = name
         self.db.session.commit()
         return
+    
+    def decrement_requests(self, user: User) -> None:
+        """
+        Decrement the number of requests available for a user.
+
+        Args
+        ----
+        user (User): The user object.
+
+        Returns
+        -------
+        None
+        """
+        user.requests_available -= 1
+        self.db.session.commit()
+        return
+    
+    def reset_requests(self, user: User) -> None:
+        """
+        Reset the number of requests available for a user.
+
+        Args
+        ----
+        user (User): The user object.
+
+        Returns
+        -------
+        None
+        """
+        user.requests_available = 20
+        self.db.session.commit()
+        return

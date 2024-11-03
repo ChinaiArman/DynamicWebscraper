@@ -89,7 +89,10 @@ def api_key_required(func: callable) -> callable:
             if api_key and api_key.startswith("Bearer "):
                 api_key = api_key.split(" ")[1]
                 user = db.get_user_by_api_key(api_key)
-                authenticator.is_scrape_available(user)
+                is_reset_available = authenticator.is_scrape_available(user)
+                if is_reset_available:
+                    db.reset_requests(user)
+                db.decrement_requests(user)
                 return func(*args, **kwargs)
             else:
                 raise Exception("API key required")

@@ -4,6 +4,7 @@
 # IMPORTS
 import bcrypt
 import secrets
+from datetime import datetime
 
 from exceptions import NoCreditsRemaining, IncorrectPassword, InvalidOneTimeCode
 
@@ -37,15 +38,20 @@ class Authenticator:
 
         Returns
         -------
-        bool: True if the user has credits remaining, otherwise False.
-
+        bool: True if the user has a credit reset available, otherwise False.
         Raises
         ------
         NoCreditsRemaining: If the user has no credits remaining.
         """
+        # check if the datetime of the last request was yesterday or earlier
+        last_request = user.last_request
+        now = datetime.now()
+        start_of_today = now.replace(hour=0, minute=0, second=0, microsecond=0)
+        if last_request and last_request >= start_of_today:
+            return True
         if user.requests_available <= 0:
             raise NoCreditsRemaining()
-        return True
+        return False
     
     def encrypt_password(self, password: str) -> str:
         """
@@ -147,3 +153,5 @@ class Authenticator:
         if code != user_code or not user_code:
             raise InvalidOneTimeCode()
         return True
+    
+
