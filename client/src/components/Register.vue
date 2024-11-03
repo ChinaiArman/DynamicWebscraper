@@ -11,7 +11,7 @@
       <button type="submit">Register</button>
     </form>
     <p>{{ message }}</p>
-    <router-link to="/login">Already have an account? Login</router-link>
+    <router-link to="/">Already have an account? Login</router-link>
   </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
   methods: {
     async registerUser() {
       try {
-        const response = await axios.post('/api/authenticate/register/', {
+        const response = await axios.post('http://localhost:5000/api/authenticate/register/', {
           name: this.name,
           email: this.email,
           password: this.password,

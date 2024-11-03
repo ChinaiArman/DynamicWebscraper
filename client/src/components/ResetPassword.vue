@@ -1,14 +1,10 @@
 <template>
   <div class="reset-password">
-    <h2>Reset Password</h2>
-    <form @submit.prevent="resetPassword">
-      <input type="email" v-model="email" placeholder="Email" required />
+    <h2>Forgot Password</h2>
+    <form @submit.prevent="sendResetEmail">
+      <input type="email" v-model="email" placeholder="Enter your email" required />
       <br>
-      <input type="text" v-model="resetCode" placeholder="Reset Code" required />
-      <br>
-      <input type="password" v-model="newPassword" placeholder="New Password" required />
-      <br>
-      <button type="submit">Reset Password</button>
+      <button type="submit">Send Reset Code</button>
     </form>
     <p>{{ message }}</p>
   </div>
@@ -21,23 +17,19 @@ export default {
   data() {
     return {
       email: '',
-      resetCode: '',
-      newPassword: '',
       message: '',
     };
   },
   methods: {
-    async resetPassword() {
+    async sendResetEmail() {
       try {
-        const response = await axios.post('/api/authenticate/reset-password/', {
+        const response = await axios.post('http://localhost:5000/api/authenticate/send-reset-code/', {
           email: this.email,
-          reset_code: this.resetCode,
-          password: this.newPassword,
         });
         this.message = response.data.message;
-        // Redirect or handle reset password success
+        // Optionally, redirect to the page where user can enter the reset code and new password
       } catch (error) {
-        this.message = error.response.data.error || 'Reset password failed.';
+        this.message = error.response?.data?.error || 'Failed to send reset code.';
       }
     },
   },
