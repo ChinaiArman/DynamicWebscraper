@@ -34,7 +34,7 @@ def create_app() -> Flask:
     """
     # FLASK CONFIGURATION
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, supports_credentials=True)  
 
     # DATABASE CONFIGURATION
     configure_db(app)
