@@ -29,7 +29,7 @@ class Database:
         """
         self.db = db
 
-    def create_user(self, email, password, name, verification_code) -> User:
+    def create_user(self, email, password, verification_code) -> User:
         """
         Create a new user in the database.
 
@@ -37,7 +37,6 @@ class Database:
         ----
         email (str): User email address.
         password (str): User password.
-        name (str): User name.
         verification_code (str): User verification code.
 
         Returns
@@ -54,7 +53,7 @@ class Database:
         """
         if self.db.session.query(User).filter(User.email == email).first():
             raise EmailAddressAlreadyInUse()
-        user = User(email=email, password=password, name=name, verification_code=verification_code, reset_code=None, is_verified=False, requests_available=20)
+        user = User(email=email, password=password, verification_code=verification_code, reset_code=None, is_verified=False, requests_available=20)
         self.db.session.add(user)
         self.db.session.commit()
         return user

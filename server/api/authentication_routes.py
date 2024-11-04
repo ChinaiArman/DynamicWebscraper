@@ -76,9 +76,8 @@ def register() -> tuple:
         authenticator = current_app.config['authenticator']
         email = request.json.get('email')
         password = authenticator.encrypt_password(request.json.get('password'))
-        name = request.json.get('name')
         verification_code = authenticator.generate_one_time_code()
-        user = db.create_user(email, password, name, verification_code)
+        user = db.create_user(email, password, verification_code)
         session.permanent = True
         session["user_id"] = user.id
         # TODO: SEND VERIFICATION EMAIL
