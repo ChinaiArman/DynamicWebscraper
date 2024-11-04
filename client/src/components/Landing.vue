@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Hello {{ userInfo?.name }}!</h1>
+        <h1>Hello {{ userInfo?.email }}!</h1>
 
         <h3>Below are your API consumption stats</h3>
     </div>

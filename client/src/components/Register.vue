@@ -2,8 +2,6 @@
   <div class="register">
     <h2>Register</h2>
     <form @submit.prevent="registerUser">
-      <input type="text" v-model="name" placeholder="Name" required />
-      <br>
       <input type="email" v-model="email" placeholder="Email" required />
       <br>
       <input type="password" v-model="password" placeholder="Password" required />
@@ -21,7 +19,6 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      name: '',
       email: '',
       password: '',
       message: '',
@@ -31,7 +28,6 @@ export default {
     async registerUser() {
       try {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/authenticate/register/`, {
-          name: this.name,
           email: this.email,
           password: this.password,
         }, {

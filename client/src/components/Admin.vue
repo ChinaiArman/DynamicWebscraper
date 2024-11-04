@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Hello {{ userInfo?.name }}!</h1>
+        <h1>Hello {{ userInfo?.email }}!</h1>
         <h3>You are viewing as an Admin.</h3>
         
         <table>
@@ -24,7 +24,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>Username</th>
                     <th>Email</th>
                     <th>Token (optional column)</th>
                     <th>Total Requests</th>
@@ -33,7 +32,6 @@
             <tbody>
                 <!--TODO: add proper data rows-->
                 <tr>
-                    <td>{{ userInfo?.name }}</td>
                     <td>{{ userInfo?.email }}</td>
                     <td>token</td>
                     <td>1</td>
