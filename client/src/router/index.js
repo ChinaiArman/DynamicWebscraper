@@ -3,6 +3,7 @@ import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import ResetPasswordView from "../views/ResetPasswordView.vue"; // Assuming you have this view
 import Admin from "../components/Admin.vue";
+import Landing from "../components/Landing.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,11 @@ const router = createRouter({
       path: "/admin",
       name: "admin",
       component: Admin,
+    },
+    {
+      path: "/landing",
+      name: "landing",
+      component: Landing,
     }
   ],
 });

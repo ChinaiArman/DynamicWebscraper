@@ -22,8 +22,7 @@ export default {
         async getUserInfo() {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/database/get-user-information/`, {withCredentials: true});   
-                console.log(response.data)
-                this.userInfo = response.data.user;
+                this.userInfo = response.data;
             } catch (error) {
                 console.error("Error fetching user informatio: ", error);
             }

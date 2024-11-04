@@ -84,8 +84,14 @@ export default {
         this.message = response.data.message;
         // Handle successful login, e.g., redirect or update user state
         if (response.status === 200) {
-          this.$router.push('/admin');
-        }
+          const userInfoResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/database/get-user-information/`, { withCredentials: true });
+          const isAdmin = userInfoResponse.data.is_admin;
+          if (isAdmin) {
+            this.$router.push('/admin');
+          } else {
+            this.$router.push('/landing');
+          }
+        };
       } catch (error) {
         this.message = error.response.data.error || 'Login failed.';
       }
