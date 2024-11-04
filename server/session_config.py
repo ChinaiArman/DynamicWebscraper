@@ -30,5 +30,7 @@ def configure_sessions(app, db) -> None:
     app.config['SESSION_SQLALCHEMY_TABLE'] = 'sessions'
     app.config['SESSION_USE_SIGNER'] = True
     app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(weeks=2)
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+    app.config['SESSION_COOKIE_SECURE'] = True
     Session(app)
     return

@@ -78,6 +78,8 @@ export default {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/authenticate/login/`, {
           email: this.email,
           password: this.password,
+        }, {
+          withCredentials: true,
         });
         this.message = response.data.message;
         // Handle successful login, e.g., redirect or update user state

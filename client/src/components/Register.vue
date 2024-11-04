@@ -34,6 +34,8 @@ export default {
           name: this.name,
           email: this.email,
           password: this.password,
+        }, {
+          withCredentials: true,
         });
         this.message = response.data.message;
         // Redirect or handle registration success
