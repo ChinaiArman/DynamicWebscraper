@@ -23,7 +23,7 @@ export default {
   methods: {
     async sendResetEmail() {
       try {
-        const response = await axios.post('http://localhost:5000/api/authenticate/send-reset-code/', {
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/authenticate/send-reset-code/`, {
           email: this.email,
         });
         this.message = response.data.message;

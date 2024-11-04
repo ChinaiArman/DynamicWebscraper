@@ -58,7 +58,7 @@ export default {
     methods: {
         async getUserInfo() {
             try {
-                const response = await axios.get('http://localhost:5000/api/database/get-user-information/', {withCredentials: true});   
+                const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/database/get-user-information/`, {withCredentials: true});   
                 console.log(response.data)
                 this.userInfo = response.data.user;
             } catch (error) {

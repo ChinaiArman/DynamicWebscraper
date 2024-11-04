@@ -63,7 +63,6 @@ export default {
 
 <script>
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 
 export default {
   data() {
@@ -76,7 +75,7 @@ export default {
   methods: {
     async loginUser() {
       try {
-        const response = await axios.post('http://localhost:5000/api/authenticate/login/', {
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/authenticate/login/`, {
           email: this.email,
           password: this.password,
         });
