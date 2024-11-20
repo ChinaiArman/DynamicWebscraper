@@ -4,7 +4,7 @@
 # IMPORTS
 from flask import Blueprint, jsonify, request, current_app, session
 
-from services.decorators import login_required
+from services.decorators import login_required, admin_required
 
 
 # DEFINE BLUEPRINT
@@ -189,3 +189,61 @@ def reset_api_key() -> tuple:
         return jsonify({"message": "API key reset successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
+
+@authentication_bp.route('/authenticate/is-admin/', methods=['GET'])
+@admin_required
+def is_admin() -> tuple:
+    """
+    Check if a user is an admin.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+    """
+    return jsonify({"message": "user is an admin"}), 200
+
+@authentication_bp.route('/authenticate/is-verified/', methods=['GET'])
+@login_required
+def is_verified() -> tuple:
+    """
+    Check if a user is verified.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+    """
+    # check if user is verified
+    try:
+        db = current_app.config['database']
+        user_id = session.get('user_id')
+        user = db.get_user_by_id(user_id)
+        if user.is_verified:
+            return jsonify({"message": "user is verified"}), 200
+        else:
+            return jsonify({"error": "user is not verified"}), 401
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
+    
+@authentication_bp.route('/authenticate/is-logged-in/', methods=['GET'])
+@login_required
+def is_logged_in() -> tuple:
+    """
+    Check if a user is logged in.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+    """
+    return jsonify({"message": "user is logged in"}), 200

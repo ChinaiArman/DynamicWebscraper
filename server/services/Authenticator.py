@@ -50,7 +50,8 @@ class Authenticator:
         if last_request and last_request < start_of_today:
             return True
         if user.requests_available <= 0:
-            raise NoCreditsRemaining()
+            pass
+            # raise NoCreditsRemaining()
         return False
     
     def encrypt_password(self, password: str) -> str:
