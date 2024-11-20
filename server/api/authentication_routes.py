@@ -74,13 +74,14 @@ def register() -> tuple:
     try:
         db = current_app.config['database']
         authenticator = current_app.config['authenticator']
+        email_manager = current_app.config['emailManager']
         email = request.json.get('email')
         password = authenticator.encrypt_password(request.json.get('password'))
         verification_code = authenticator.generate_one_time_code()
         user = db.create_user(email, password, verification_code)
         session.permanent = True
         session["user_id"] = user.id
-        # TODO: SEND VERIFICATION EMAIL
+        email_manager.send_verification_email(email, user.username, verification_code)
         return jsonify({"message": "registration successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
@@ -127,11 +128,12 @@ def request_password_reset() -> tuple:
     try:
         db = current_app.config['database']
         authenticator = current_app.config['authenticator']
+        email_manager = current_app.config['emailManager']
         email = request.json.get('email')
         user = db.get_user_by_email(email)
         reset_code = authenticator.generate_one_time_code()
         db.update_reset_code(user, reset_code)
-        # TODO: SEND VERIFICATION EMAIL
+        email_manager.forgot_password_email(email, reset_code)
         return jsonify({"message": "reset code sent"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
