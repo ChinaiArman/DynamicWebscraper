@@ -1,0 +1,10 @@
+# Environment
+.env
+node_modules
+package-lock.json
+
+# Build files
+dist
+
+# Settings
+.vscode
