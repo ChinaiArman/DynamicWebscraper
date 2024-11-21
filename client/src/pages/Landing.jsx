@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
   const [userInfo, setUserInfo] = useState(null);
+  const [url, setUrl] = useState(""); 
+  const [prompt, setPrompt] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,13 +35,53 @@ const Landing = () => {
     }
   }
 
+  const handleUrlSubmit = async () => {
+    // try {
+    //   const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/qna/query`, {
+    //     url: url,
+    //     prompt: prompt
+    //   }, { withCredentials: true });
+    //   console.log(response);
+    // } catch (error) {
+    //   console.error("Error:", error)
+    // }
+    console.log(url, prompt);
+  }
+
   return (
-    <div>
+    <div className="flex flex-col items-center mx-auto md:h-screen lg:py-0">
+      
+      <div className="mb-4">
+        <input
+          type="url"
+          placeholder="Enter a URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          className="border-2 border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 w-full"
+        />
+      </div>
+      <div className="mb-4">
+        <textarea
+          type="text"
+          placeholder="Enter a prompt"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          className="border-2 border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 w-full"
+        />
+      </div>
+      <button
+        onClick={handleUrlSubmit}
+        className="text-white bg-sky-600 hover:bg-sky-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+      >
+        Enter
+      </button>
+      
+      
       <h1>Account: {userInfo?.email}</h1>
       <h3>Below are your API consumption stats</h3>
       <button
         onClick={logout}
-        className=" text-white bg-sky-600 hover:bg-sky-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        className=" text-white bg-gray-600 hover:bg-gray-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       >
         Logout
       </button>
