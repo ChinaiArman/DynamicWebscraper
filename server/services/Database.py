@@ -6,6 +6,7 @@ from datetime import datetime
 
 from models.Scrape import Scrape
 from models.User import User
+from models.EndpointUsage import EndpointUsage
 
 from exceptions import InvalidAPIKey, InvalidEmailAddress, EmailAddressAlreadyInUse, UserNotFound, ImpermissibleUserRequest
 
@@ -336,5 +337,27 @@ class Database:
         """
         user = self.get_user_by_id(user_id)
         self.db.session.delete(user)
+        self.db.session.commit()
+        return
+    
+    def increment_requests(self, endpoint: str, method: str) -> None:
+        """
+        Increment the count for an endpoint.
+
+        Args
+        ----
+        endpoint (str): The endpoint.
+        method (str): The method.
+
+        Returns
+        -------
+        None
+        """
+        usage = self.db.session.query(EndpointUsage).filter(EndpointUsage.endpoint == endpoint, EndpointUsage.method == method).first()
+        if not usage:
+            usage = EndpointUsage(endpoint=endpoint, method=method, count=1)
+            self.db.session.add(usage)
+        else:
+            usage.count += 1
         self.db.session.commit()
         return

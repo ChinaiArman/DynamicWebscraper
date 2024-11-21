@@ -76,6 +76,20 @@ def create_app() -> Flask:
         if request.method == 'OPTIONS':
             response.status_code = 200
         return response
+    
+    @app.after_request
+    def _(response):
+        # increment the count for the endpoint requested in the database
+        db = app.config['database']
+        endpoint = request.endpoint
+        # convert the bp to the endpoint
+        if endpoint == None:
+            return response
+        available_endpoints = {"authentication_bp": "authenticate", "qna_bp": "qna", "database_bp": "database"}
+        endpoint = "api/" + available_endpoints[endpoint.split(".")[0]] + "/" + endpoint.split(".")[1]
+        method = request.method
+        db.increment_requests(endpoint, method)
+        return response
 
     # REGISTER BLUEPRINTS
     app.register_blueprint(authentication_bp, url_prefix='/api')
