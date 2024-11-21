@@ -5,6 +5,8 @@ import './App.css'
 
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Landing from './pages/Landing'
+import Admin from './pages/Admin'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/landing",
+    element: <Landing />
+  },
+  {
+    path: "/admin",
+    element: <Admin />
   }
 ])
 
