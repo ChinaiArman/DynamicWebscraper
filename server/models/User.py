@@ -26,6 +26,7 @@ class User(db.Model):
     api_key = db.Column(db.String(50), nullable=True)
     is_admin = db.Column(db.Boolean, default=False)
     last_request = db.Column(db.DateTime, nullable=True)
+    num_requests = db.Column(db.Integer, default=0)
 
     scrapes = db.relationship('Scrape', back_populates='user')
 
@@ -48,5 +49,6 @@ class User(db.Model):
             "is_verified": self.is_verified,
             "requests_available": self.requests_available,
             "is_admin": self.is_admin,
-            "last_request": self.last_request
+            "last_request": self.last_request,
+            "num_requests": self.num_requests
         }

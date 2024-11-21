@@ -42,6 +42,8 @@ def login_required(func: callable) -> callable:
         This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
         """
         if "user_id" in session:
+            db = current_app.config['database']
+            db.increment_total_requests(db.get_user_by_id(session.get('user_id')))
             return func(*args, **kwargs)
         else:
             return jsonify({"error": "login required"}), 401
@@ -93,6 +95,7 @@ def api_key_required(func: callable) -> callable:
                 if is_reset_available:
                     db.reset_requests(user)
                 db.decrement_requests(user)
+                db.increment_total_requests(user)
                 return func(*args, **kwargs)
             else:
                 raise Exception("API key required")
@@ -124,6 +127,7 @@ def admin_required(func: callable) -> callable:
             db = current_app.config['database']
             user = db.get_user_by_id(session.get('user_id'))
             if user.is_admin:
+                db.increment_total_requests(user)
                 return func(*args, **kwargs)
             else:
                 return jsonify({"error": "admin required"}), 401

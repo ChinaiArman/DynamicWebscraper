@@ -32,6 +32,7 @@ def login() -> tuple:
         password = request.json.get('password')
         user = db.get_user_by_email(email)
         authenticator.verify_password(password, user.password)
+        db.increment_total_requests(user)
         session.permanent = True
         session["user_id"] = user.id
         return jsonify({"message": "login successful"}), 200
@@ -79,6 +80,7 @@ def register() -> tuple:
         password = authenticator.encrypt_password(request.json.get('password'))
         verification_code = authenticator.generate_one_time_code()
         user = db.create_user(email, password, verification_code)
+        db.increment_total_requests(user)
         session.permanent = True
         session["user_id"] = user.id
         email_manager.send_verification_email(email, user.username, verification_code)
@@ -106,6 +108,7 @@ def reset_password() -> tuple:
         reset_code = request.json.get('reset_code')
         password = authenticator.encrypt_password(request.json.get('password'))
         user = db.get_user_by_email(email)
+        db.increment_total_requests(user)
         authenticator.verify_code(reset_code, user.reset_code)
         db.update_password(user, password)
         return jsonify({"message": "password reset successful"}), 200
@@ -131,6 +134,7 @@ def request_password_reset() -> tuple:
         email_manager = current_app.config['emailManager']
         email = request.json.get('email')
         user = db.get_user_by_email(email)
+        db.increment_total_requests(user)
         reset_code = authenticator.generate_one_time_code()
         db.update_reset_code(user, reset_code)
         email_manager.forgot_password_email(email, reset_code)

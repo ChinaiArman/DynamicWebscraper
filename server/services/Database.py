@@ -367,3 +367,10 @@ class Database:
         """
         usage = self.db.session.query(EndpointUsage).all()
         return [u.to_dict() for u in usage]
+    
+    def increment_total_requests(self, user) -> None:
+        """
+        """
+        user.num_requests += 1
+        self.db.session.commit()
+        return
