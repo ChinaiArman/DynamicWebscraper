@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -5,6 +6,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   let loginUser = async (event) => {
     event.preventDefault();
@@ -12,16 +14,14 @@ const Login = () => {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_URL}/api/authenticate/login/`, {
           email: email,
           password: password,
-        }, {
-          withCredentials: true,
-        });
+        }, { withCredentials: true});
         if (response.status === 200) {
           const userInfoResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/database/get-user-information/`, { withCredentials: true });
           const isAdmin = userInfoResponse.data.is_admin;
           if (isAdmin) {
-            window.location.href='/admin'; // TODO: update this to navigate to admin page
+            navigate("/admin");
           } else {
-            window.location.href='/landing';  // TODO: update this to navigate to landinng page
+            navigate("/landing");
           }
         };
       } catch (error) {
