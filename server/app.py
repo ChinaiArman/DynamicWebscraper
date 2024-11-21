@@ -3,6 +3,7 @@
 
 # IMPORTS
 from flask import Flask, jsonify, request
+import logging
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
@@ -83,6 +84,7 @@ def create_app() -> Flask:
         db = app.config['database']
         endpoint = request.endpoint
         # convert the bp to the endpoint
+        logging.info(f"Endpoint: {endpoint}")
         if endpoint == None:
             return response
         available_endpoints = {"authentication_bp": "authenticate", "qna_bp": "qna", "database_bp": "database"}
