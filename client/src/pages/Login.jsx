@@ -19,9 +19,9 @@ const Login = () => {
           const userInfoResponse = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/database/get-user-information/`, { withCredentials: true });
           const isAdmin = userInfoResponse.data.is_admin;
           if (isAdmin) {
-            window.location.href='/admin'; // TEMPORARY - NEED TO UPDATE
+            window.location.href='/admin'; // TODO: update this to navigate to admin page
           } else {
-            window.location.href='/landing';  // TEMPORARY - NEED TO UPDATE
+            window.location.href='/landing';  // TODO: update this to navigate to landinng page
           }
         };
       } catch (error) {
@@ -40,9 +40,7 @@ const Login = () => {
         ></a>
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              Welcome!
-            </h1>
+            
             <h2 className="text-l font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Login to your account
             </h2>
@@ -99,15 +97,15 @@ const Login = () => {
               >
                 Login
               </button>
-              {/* <p className="text-sm font-light text-gray-600 dark:text-gray-400">
-                Don't have an account yet?
+              <p className="text-sm font-light text-gray-600 dark:text-gray-400">
+                Don't have an account yet? {" "}
                 <a
-                  href="/signup"
-                  className="font-medium text-theme-mantis hover:underline dark:text-primary-500"
+                  href="/register"
+                  className="font-medium text-sky-500 hover:underline dark:text-primary-500"
                 >
-                  Sign up
+                  Register Here
                 </a>
-              </p> */}
+              </p>
             </form>
           </div>
         </div>
