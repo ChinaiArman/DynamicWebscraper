@@ -58,7 +58,7 @@ def logout() -> tuple:
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
-@authentication_bp.route('/authenticate/register/', methods=['POST'])
+@authentication_bp.route('/authenticate/register/', methods=['PUT'])
 def register() -> tuple:
     """
     Register a user.
@@ -247,3 +247,27 @@ def is_logged_in() -> tuple:
     response (tuple): The response tuple containing the response data and status code.
     """
     return jsonify({"message": "user is logged in"}), 200
+
+@authentication_bp.route('/authenticate/delete-account/', methods=['DELETE'])
+@login_required
+def delete_account() -> tuple:
+    """
+    Delete a user's account.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    response (tuple): The response tuple containing the response data and status code.
+    """
+    try:
+        db = current_app.config['database']
+        user_id = session.get('user_id')
+        db.delete_user(user_id)
+        session.clear()
+        return jsonify({"message": "account deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
+    

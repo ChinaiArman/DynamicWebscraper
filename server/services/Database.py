@@ -317,3 +317,24 @@ class Database:
         """
         users = self.db.session.query(User).all()
         return users
+
+    def delete_user(self, user_id) -> None:
+        """
+        Delete a user.
+
+        Args
+        ----
+        user (User): The user object.
+
+        Returns
+        -------
+        None
+
+        Disclaimer
+        ----------
+        This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
+        """
+        user = self.get_user_by_id(user_id)
+        self.db.session.delete(user)
+        self.db.session.commit()
+        return
