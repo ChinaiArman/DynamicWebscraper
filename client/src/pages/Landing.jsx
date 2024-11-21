@@ -49,8 +49,8 @@ const Landing = () => {
   }
 
   return (
-    <div className="flex flex-col items-center mx-auto md:h-screen lg:py-0">
-      
+    <div className="px-6 py-8 w-full md:w-3/4 lg:w-2/3 mx-auto">
+      <p>Enter a URL and Prompt to use the Dynamic Webscraper</p>
       <div className="mb-4">
         <input
           type="url"
@@ -60,7 +60,7 @@ const Landing = () => {
           className="border-2 border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 w-full"
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-2">
         <textarea
           type="text"
           placeholder="Enter a prompt"
@@ -71,11 +71,10 @@ const Landing = () => {
       </div>
       <button
         onClick={handleUrlSubmit}
-        className="text-white bg-sky-600 hover:bg-sky-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        className="mb-4 text-white bg-sky-600 hover:bg-sky-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       >
         Enter
       </button>
-      
       
       <h1>Account: {userInfo?.email}</h1>
       <h3>Below are your API consumption stats</h3>
