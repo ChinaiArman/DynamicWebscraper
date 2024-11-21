@@ -7,6 +7,8 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Landing from './pages/Landing'
 import Admin from './pages/Admin'
+import SwaggerUI from 'swagger-ui-react'
+import SwaggerUIComponent from './pages/SwaggerUI'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />
+  },
+  {
+    path:"/docs",
+    element:<SwaggerUIComponent/>
   }
 ])
 
