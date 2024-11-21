@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UserInfo = () => {
+const Admin = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default Admin;

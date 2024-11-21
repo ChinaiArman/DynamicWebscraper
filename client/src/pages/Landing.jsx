@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const UserInfo = () => {
+const Landing = () => {
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default Landing;
