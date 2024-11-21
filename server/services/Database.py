@@ -361,3 +361,9 @@ class Database:
             usage.count += 1
         self.db.session.commit()
         return
+    
+    def get_endpoint_usage(self) -> list:
+        """
+        """
+        usage = self.db.session.query(EndpointUsage).all()
+        return [u.to_dict() for u in usage]

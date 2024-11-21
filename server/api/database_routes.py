@@ -99,3 +99,24 @@ def get_all_users() -> tuple:
         return jsonify({"users": [user.to_dict() for user in users]}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+@database_bp.route('/database/get-endpoint-usage/', methods=['GET'])
+@admin_required
+def get_endpoint_usage() -> tuple:
+    """
+    Get the endpoint usage.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    tuple: The endpoint usage and status code.
+    """
+    try:
+        db = current_app.config['database']
+        endpoint_usage = db.get_endpoint_usage()
+        return jsonify({"endpoint_usage": endpoint_usage}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
