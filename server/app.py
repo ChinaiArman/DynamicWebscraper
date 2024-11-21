@@ -86,9 +86,12 @@ def create_app() -> Flask:
         if endpoint == None:
             return response
         available_endpoints = {"authentication_bp": "authenticate", "qna_bp": "qna", "database_bp": "database"}
-        endpoint = "api/" + available_endpoints[endpoint.split(".")[0]] + "/" + endpoint.split(".")[1]
-        method = request.method
-        db.increment_requests(endpoint, method)
+        try:
+            endpoint = "api/" + available_endpoints[endpoint.split(".")[0]] + "/" + endpoint.split(".")[1]
+            method = request.method
+            db.increment_requests(endpoint, method)
+        except:
+            pass
         return response
 
     # REGISTER BLUEPRINTS
