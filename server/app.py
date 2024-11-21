@@ -42,7 +42,7 @@ def create_app() -> Flask:
     """
     # FLASK CONFIGURATION
     app = Flask(__name__)
-    CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": CLIENT_URL, "allow_headers": ["Content-Type"]}})
+    CORS(app, supports_credentials=True) #, resources={r"/api/*": {"origins": CLIENT_URL, "allow_headers": ["Content-Type"]}}
 
     # DATABASE CONFIGURATION
     configure_db(app)
@@ -67,16 +67,16 @@ def create_app() -> Flask:
         return jsonify({"message": "Hello World"})
     
     # RESPONSE HEADERS
-    @app.after_request
-    def _(response):
-        response.headers['Access-Control-Allow-Origin'] = CLIENT_URL
-        response.headers['Access-Control-Allow-Credentials'] = 'true'
-        response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-        # Handle OPTIONS request directly
-        if request.method == 'OPTIONS':
-            response.status_code = 200
-        return response
+    # @app.after_request
+    # def _(response):
+    #     response.headers['Access-Control-Allow-Origin'] = CLIENT_URL
+    #     response.headers['Access-Control-Allow-Credentials'] = 'true'
+    #     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
+    #     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+    #     # Handle OPTIONS request directly
+    #     if request.method == 'OPTIONS':
+    #         response.status_code = 200
+    #     return response
     
     @app.after_request
     def _(response):
