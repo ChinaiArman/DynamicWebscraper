@@ -40,8 +40,9 @@ const Landing = () => {
   };
 
   const handleUrlSubmit = async () => {
+    // api required
     // try {
-    //   const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/qna/query`, {
+    //   const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/qna/qna/query`, {
     //     url: url,
     //     prompt: prompt
     //   }, { withCredentials: true });
@@ -54,6 +55,15 @@ const Landing = () => {
 
   return (
     <div className="px-6 py-8 w-full md:w-3/4 lg:w-2/3 mx-auto">
+      <div className="w-full flex justify-between items-center mb-2 md:w-3/4 lg:w-2/3 mx-auto">
+        <p>Account: {userInfo?.email}</p>
+        <button
+          onClick={logout}
+          className=" text-white bg-gray-600 hover:bg-gray-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        >
+          Logout
+        </button>
+      </div>
       <div className="bg-gray-100 rounded-lg p-6 shadow-md mb-6 w-full md:w-3/4 lg:w-2/3 mx-auto">
         <p className="mb-4">
           Enter a URL and Prompt to use the Dynamic Webscraper!
@@ -83,14 +93,7 @@ const Landing = () => {
         </button>
       </div>
 
-      <h1>Account: {userInfo?.email}</h1>
       <h3>Below are your API consumption stats</h3>
-      <button
-        onClick={logout}
-        className=" text-white bg-gray-600 hover:bg-gray-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-      >
-        Logout
-      </button>
     </div>
   );
 };
