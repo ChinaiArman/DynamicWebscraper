@@ -5,9 +5,9 @@
     "title": "Comprehensive API",
     "description": "API for user authentication, database interactions, and AI-powered Q&A."
   },
-  "host": "localhost:5000",
+  "host": "backendurl",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": ["https"],
   "paths": {
     "/authenticate/login/": {
       "post": {
