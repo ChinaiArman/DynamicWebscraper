@@ -1,1 +1,372 @@
-"{\n  \"swagger\": \"2.0\",\n  \"info\": {\n    \"version\": \"1.0.0\",\n    \"title\": \"Comprehensive API\",\n    \"description\": \"API for user authentication, database interactions, and AI-powered Q&A.\"\n  },\n  \"host\": \"localhost:5000\",\n  \"basePath\": \"/\",\n  \"schemes\": [\n    \"http\"\n  ],\n  \"paths\": {\n    \"/authenticate/login/\": {\n      \"post\": {\n        \"summary\": \"Login a user\",\n        \"description\": \"Authenticate a user using their email and password.\",\n        \"parameters\": [\n          {\n            \"in\": \"body\",\n            \"name\": \"body\",\n            \"required\": true,\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"email\": {\n                  \"type\": \"string\"\n                },\n                \"password\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          }\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Login successful\"\n          },\n          \"401\": {\n            \"description\": \"Unauthorized access\"\n          }\n        }\n      }\n    },\n    \"/authenticate/logout/\": {\n      \"post\": {\n        \"summary\": \"Logout a user\",\n        \"description\": \"Log out the currently logged-in user.\",\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Logout successful\"\n          },\n          \"401\": {\n            \"description\": \"Unauthorized access\"\n          }\n        }\n      }\n    },\n    \"/authenticate/register/\": {\n      \"put\": {\n        \"summary\": \"Register a user\",\n        \"description\": \"Register a new user and send a verification email.\",\n        \"parameters\": [\n          {\n            \"in\": \"body\",\n            \"name\": \"body\",\n            \"required\": true,\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"email\": {\n                  \"type\": \"string\"\n                },\n                \"password\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          }\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Registration successful\"\n          },\n          \"401\": {\n            \"description\": \"Registration failed\"\n          }\n        }\n      }\n    },\n    \"/authenticate/reset-password/\": {\n      \"post\": {\n        \"summary\": \"Reset user password\",\n        \"description\": \"Reset the user's password using a reset code.\",\n        \"parameters\": [\n          {\n            \"in\": \"body\",\n            \"name\": \"body\",\n            \"required\": true,\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"email\": {\n                  \"type\": \"string\"\n                },\n                \"reset_code\": {\n                  \"type\": \"string\"\n                },\n                \"password\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          }\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Password reset successful\"\n          },\n          \"401\": {\n            \"description\": \"Unauthorized access\"\n          }\n        }\n      }\n    },\n    \"/authenticate/request-password-reset/\": {\n      \"post\": {\n        \"summary\": \"Request password reset\",\n        \"description\": \"Send a password reset code to the user's email.\",\n        \"parameters\": [\n          {\n            \"in\": \"body\",\n            \"name\": \"body\",\n            \"required\": true,\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"email\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          }\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Reset code sent successfully\"\n          },\n          \"401\": {\n            \"description\": \"Unauthorized access\"\n          }\n        }\n      }\n    },\n    \"/authenticate/verify/\": {\n      \"post\": {\n        \"summary\": \"Verify a user\",\n        \"description\": \"Verify a user's account using a verification code.\",\n        \"parameters\": [\n          {\n            \"in\": \"body\",\n            \"name\": \"body\",\n            \"required\": true,\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"verification_code\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          }\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Verification successful\"\n          },\n          \"401\": {\n            \"description\": \"Verification failed\"\n          }\n        }\n      }\n    },\n    \"/database/get-user-information/\": {\n      \"get\": {\n        \"summary\": \"Get user information\",\n        \"description\": \"Retrieve the logged-in user's information.\",\n        \"responses\": {\n          \"200\": {\n            \"description\": \"User information retrieved successfully\",\n            \"schema\": {\n              \"$ref\": \"#/definitions/User\"\n            }\n          },\n          \"400\": {\n            \"description\": \"Failed to retrieve user information\"\n          }\n        }\n      }\n    },\n    \"/database/get-scrape-history/\": {\n      \"get\": {\n        \"summary\": \"Get scrape history\",\n        \"description\": \"Retrieve the scrape history for the logged-in user.\",\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Scrape history retrieved successfully\",\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"scrapes\": {\n                  \"type\": \"array\",\n                  \"items\": {\n                    \"$ref\": \"#/definitions/Scrape\"\n                  }\n                }\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Failed to retrieve scrape history\"\n          }\n        }\n      }\n    },\n    \"/database/change-name/\": {\n      \"post\": {\n        \"summary\": \"Change user name\",\n        \"description\": \"Update the name of the logged-in user.\",\n        \"parameters\": [\n          {\n            \"in\": \"body\",\n            \"name\": \"body\",\n            \"required\": true,\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"name\": {\n                  \"type\": \"string\"\n                }\n              }\n            }\n          }\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Name changed successfully\"\n          },\n          \"400\": {\n            \"description\": \"Failed to change name\"\n          }\n        }\n      }\n    },\n    \"/database/get-all-users/\": {\n      \"post\": {\n        \"summary\": \"Get all users\",\n        \"description\": \"Retrieve a list of all users (Admin only).\",\n        \"responses\": {\n          \"200\": {\n            \"description\": \"List of users retrieved successfully\",\n            \"schema\": {\n              \"type\": \"array\",\n              \"items\": {\n                \"$ref\": \"#/definitions/User\"\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Failed to retrieve users\"\n          }\n        }\n      }\n    },\n    \"/database/get-endpoint-usage/\": {\n      \"get\": {\n        \"summary\": \"Get endpoint usage\",\n        \"description\": \"Retrieve usage statistics for all endpoints (Admin only).\",\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Endpoint usage statistics retrieved successfully\",\n            \"schema\": {\n              \"type\": \"object\",\n              \"additionalProperties\": {\n                \"type\": \"integer\"\n              }\n            }\n          },\n          \"400\": {\n            \"description\": \"Failed to retrieve endpoint usage statistics\"\n          }\n        }\n      }\n    },\n    \"/qna/query\": {\n      \"get\": {\n        \"summary\": \"Query the AI server\",\n        \"description\": \"Send a URL and a prompt to scrape and query the AI server for a response.\",\n        \"parameters\": [\n          {\n            \"name\": \"url\",\n            \"in\": \"query\",\n            \"required\": true,\n            \"type\": \"string\",\n            \"description\": \"The URL to scrape.\"\n          },\n          {\n            \"name\": \"prompt\",\n            \"in\": \"query\",\n            \"required\": true,\n            \"type\": \"string\",\n            \"description\": \"The prompt to send to the AI server.\"\n          },\n          {\n            \"name\": \"Authorization\",\n            \"in\": \"header\",\n            \"required\": true,\n            \"type\": \"string\",\n            \"description\": \"The API key for authentication in the format 'Bearer {API_KEY}'.\"\n          }\n        ],\n        \"responses\": {\n          \"200\": {\n            \"description\": \"Query executed successfully\",\n            \"schema\": {\n              \"type\": \"object\"\n            }\n          },\n          \"400\": {\n            \"description\": \"Error occurred while processing the query\"\n          }\n        }\n      }\n    }\n  },\n  \"definitions\": {\n    \"User\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"integer\"\n        },\n        \"email\": {\n          \"type\": \"string\"\n        },\n        \"name\": {\n          \"type\": \"string\"\n        },\n        \"is_verified\": {\n          \"type\": \"boolean\"\n        }\n      }\n    },\n    \"Scrape\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"integer\"\n        },\n        \"user_id\": {\n          \"type\": \"integer\"\n        },\n        \"data\": {\n          \"type\": \"string\"\n        },\n        \"created_at\": {\n          \"type\": \"string\",\n          \"format\": \"date-time\"\n        }\n      }\n    }\n  }\n}"
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Comprehensive API",
+    "description": "API for user authentication, database interactions, and AI-powered Q&A."
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/authenticate/login/": {
+      "post": {
+        "summary": "Login a user",
+        "description": "Authenticate a user using their email and password.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        }
+      }
+    },
+    "/authenticate/logout/": {
+      "post": {
+        "summary": "Logout a user",
+        "description": "Log out the currently logged-in user.",
+        "responses": {
+          "200": {
+            "description": "Logout successful"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        }
+      }
+    },
+    "/authenticate/register/": {
+      "put": {
+        "summary": "Register a user",
+        "description": "Register a new user and send a verification email.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registration successful"
+          },
+          "401": {
+            "description": "Registration failed"
+          }
+        }
+      }
+    },
+    "/authenticate/reset-password/": {
+      "post": {
+        "summary": "Reset user password",
+        "description": "Reset the user's password using a reset code.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "reset_code": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset successful"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        }
+      }
+    },
+    "/authenticate/request-password-reset/": {
+      "post": {
+        "summary": "Request password reset",
+        "description": "Send a password reset code to the user's email.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reset code sent successfully"
+          },
+          "401": {
+            "description": "Unauthorized access"
+          }
+        }
+      }
+    },
+    "/authenticate/verify/": {
+      "post": {
+        "summary": "Verify a user",
+        "description": "Verify a user's account using a verification code.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "verification_code": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Verification successful"
+          },
+          "401": {
+            "description": "Verification failed"
+          }
+        }
+      }
+    },
+    "/database/get-user-information/": {
+      "get": {
+        "summary": "Get user information",
+        "description": "Retrieve the logged-in user's information.",
+        "responses": {
+          "200": {
+            "description": "User information retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Failed to retrieve user information"
+          }
+        }
+      }
+    },
+    "/database/get-scrape-history/": {
+      "get": {
+        "summary": "Get scrape history",
+        "description": "Retrieve the scrape history for the logged-in user.",
+        "responses": {
+          "200": {
+            "description": "Scrape history retrieved successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "scrapes": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Scrape"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to retrieve scrape history"
+          }
+        }
+      }
+    },
+    "/database/change-name/": {
+      "post": {
+        "summary": "Change user name",
+        "description": "Update the name of the logged-in user.",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Name changed successfully"
+          },
+          "400": {
+            "description": "Failed to change name"
+          }
+        }
+      }
+    },
+    "/database/get-all-users/": {
+      "post": {
+        "summary": "Get all users",
+        "description": "Retrieve a list of all users (Admin only).",
+        "responses": {
+          "200": {
+            "description": "List of users retrieved successfully",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to retrieve users"
+          }
+        }
+      }
+    },
+    "/database/get-endpoint-usage/": {
+      "get": {
+        "summary": "Get endpoint usage",
+        "description": "Retrieve usage statistics for all endpoints (Admin only).",
+        "responses": {
+          "200": {
+            "description": "Endpoint usage statistics retrieved successfully",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "integer"
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to retrieve endpoint usage statistics"
+          }
+        }
+      }
+    },
+    "/qna/query": {
+      "get": {
+        "summary": "Query the AI server",
+        "description": "Send a URL and a prompt to scrape and query the AI server for a response.",
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The URL to scrape."
+          },
+          {
+            "name": "prompt",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The prompt to send to the AI server."
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The API key for authentication in the format 'Bearer {API_KEY}'."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query executed successfully",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Error occurred while processing the query"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "is_verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Scrape": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "user_id": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}
