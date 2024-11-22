@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+import { MESSAGES } from "../messages";
+
 const Landing = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [url, setUrl] = useState("");
@@ -56,22 +58,22 @@ const Landing = () => {
   return (
     <div className="px-6 py-8 w-full md:w-3/4 lg:w-2/3 mx-auto">
       <div className="w-full flex justify-between items-center mb-2 md:w-3/4 lg:w-2/3 mx-auto">
-        <p>Account: {userInfo?.email}</p>
+        <p>
+          {MESSAGES.ACCOUNT} {userInfo?.email}
+        </p>
         <button
           onClick={logout}
           className=" text-white bg-gray-600 hover:bg-gray-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         >
-          Logout
+          {MESSAGES.LOGOUT}
         </button>
       </div>
       <div className="bg-gray-100 rounded-lg p-6 shadow-md mb-6 w-full md:w-3/4 lg:w-2/3 mx-auto">
-        <p className="mb-4">
-          Enter a URL and Prompt to use the Dynamic Webscraper!
-        </p>
+        <p className="mb-4">{MESSAGES.USER.ENTER_URL_PROMPT}</p>
         <div className="mb-4">
           <input
             type="url"
-            placeholder="Enter a URL"
+            placeholder={MESSAGES.USER.ENTER_URL}
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             className="border-2 border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 w-full"
@@ -79,7 +81,7 @@ const Landing = () => {
         </div>
         <div className="mb-4">
           <textarea
-            placeholder="Enter a prompt"
+            placeholder={MESSAGES.USER.ENTER_PROMPT}
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             className="border-2 border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 w-full"
@@ -89,11 +91,11 @@ const Landing = () => {
           onClick={handleUrlSubmit}
           className="text-white bg-sky-600 hover:bg-sky-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-full sm:w-auto"
         >
-          Enter
+          {MESSAGES.USER.ENTER}
         </button>
       </div>
 
-      <h3>Below are your API consumption stats</h3>
+      <h3>{MESSAGES.USER.API_STATS}</h3>
     </div>
   );
 };

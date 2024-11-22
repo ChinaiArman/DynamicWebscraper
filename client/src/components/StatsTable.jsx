@@ -4,9 +4,9 @@ import axios from "axios";
 const StatsTable = ({ columnNames, data=[] }) => {
   return (
 
-    <div className="overflow-x-auto shadow-md items-center justify-center">
-    <table className="text-sm text-left text-black dark:text-gray-400">
-      <thead className="text-xs text-black dark:bg-gray-700 dark:text-gray-400 text-center">
+    <div className="overflow-x-auto shadow-md items-center justify-center mt-2">
+    <table className="text-sm text-left text-black dark:text-gray-400 bg-gray-50">
+      <thead className="text-xs text-black dark:bg-gray-700 dark:text-gray-400 text-center uppercase">
         <tr>
           {columnNames.map((col, index) => (
             <th key={index} className="px-6 py-3 border-b border-gray-500">
