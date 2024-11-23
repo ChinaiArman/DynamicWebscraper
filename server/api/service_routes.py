@@ -12,6 +12,40 @@ service_bp = Blueprint('service_bp', __name__)
 
 
 # ROUTES
+@service_bp.route('/service/register', methods=['POST'])
+def register() -> tuple:
+    """
+    """
+    try:
+        db = current_app.config['database']
+        authenticator = current_app.config['authenticator']
+        email_manager = current_app.config['emailManager']
+        email = request.json.get('email')
+        password = authenticator.encrypt_password(request.json.get('password'))
+        verification_code = authenticator.generate_one_time_code()
+        user = db.create_user(email, password, verification_code)
+        db.increment_total_requests(user)
+        email_manager.send_verification_email(email, user.username, verification_code)
+        return jsonify({"userInfo": user.to_dict(), "message": "Check email for verification code"}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+    
+@service_bp.route('/service/verify/<int:user_id>', methods=['POST'])
+def verify(user_id) -> tuple:
+    """
+    """
+    try:
+        db = current_app.config['database']
+        authenticator = current_app.config['authenticator']
+        user = db.get_user_by_id(user_id)
+        verification_code = request.json.get('verification_code')
+        authenticator.verify_code(verification_code, user.verification_code)
+        api_key = authenticator.generate_api_key()
+        db.verify_user(user, api_key)
+        return jsonify({"message": "verification successful"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 401
+
 @service_bp.route('/service/query', methods=['GET'])
 @api_key_required
 def query() -> tuple:
@@ -200,37 +234,3 @@ def delete_query_history(scrape_id: int) -> tuple:
         return jsonify({'message': 'Scrape deleted'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-    
-@service_bp.route('/service/register', methods=['POST'])
-def register() -> tuple:
-    """
-    """
-    try:
-        db = current_app.config['database']
-        authenticator = current_app.config['authenticator']
-        email_manager = current_app.config['emailManager']
-        email = request.json.get('email')
-        password = authenticator.encrypt_password(request.json.get('password'))
-        verification_code = authenticator.generate_one_time_code()
-        user = db.create_user(email, password, verification_code)
-        db.increment_total_requests(user)
-        email_manager.send_verification_email(email, user.username, verification_code)
-        return jsonify({"userInfo": user.to_dict(), "message": "Check email for verification code"}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 400
-    
-@service_bp.route('/service/verify/<int:user_id>', methods=['POST'])
-def verify(user_id) -> tuple:
-    """
-    """
-    try:
-        db = current_app.config['database']
-        authenticator = current_app.config['authenticator']
-        user = db.get_user_by_id(user_id)
-        verification_code = request.json.get('verification_code')
-        authenticator.verify_code(verification_code, user.verification_code)
-        api_key = authenticator.generate_api_key()
-        db.verify_user(user, api_key)
-        return jsonify({"message": "verification successful"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 401
