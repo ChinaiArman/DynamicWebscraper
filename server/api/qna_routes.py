@@ -16,15 +16,56 @@ qna_bp = Blueprint('qna_bp', __name__)
 @api_key_required
 def qna() -> tuple:
     """
-    Query the AI server.
-
-    Args
-    ----
-    None
-
-    Returns
-    -------
-    response (tuple): The response tuple containing the response data and status code.
+    QnA Query Endpoint
+    ---
+    tags:
+      - QnA
+    security:
+      - BearerAuth: []  # This is the security definition being used
+    parameters:
+      - name: url
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The URL of the content to scrape.
+      - name: prompt
+        in: query
+        required: true
+        schema:
+          type: string
+        description: The prompt or question to query the AI server with.
+    responses:
+      200:
+        description: Successful response containing the AI-generated answer.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                result:
+                  type: string
+                  description: The AI-generated response to the query.
+      400:
+        description: Error response due to a bad request or exception.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: The error message explaining the failure.
+      401:
+        description: Unauthorized. No valid Bearer Token provided.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: Error message explaining the lack of authorization.
     """
     try:
         # Get the URL from the request

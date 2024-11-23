@@ -8,6 +8,8 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
+from flasgger import Swagger
+
 from api.authentication_routes import authentication_bp
 from api.qna_routes import qna_bp
 from api.database_routes import database_bp
@@ -50,6 +52,40 @@ def create_app() -> Flask:
     # CONFIGURE SESSIONS
     configure_sessions(app, db)
 
+    # CONFIGURE SWAGGER
+    swagger_config = {
+        "headers": [],
+        "specs": [
+            {
+                "endpoint": 'apispec',
+                "route": '/docs/apispec.json',
+                "rule_filter": lambda rule: True,  # Include all endpoints
+                "model_filter": lambda tag: True,  # Include all models
+            }
+        ],
+        "static_url_path": "/flasgger_static",
+        "swagger_ui": True,
+        "specs_route": "/api/docs/",
+    }
+    app.config['SWAGGER'] = {
+        "securityDefinitions": {
+            "BearerAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization",
+                "description": "Bearer token for authorization (use 'Bearer <your_token>')"
+            }
+        },
+        "security": [
+            {"BearerAuth": []}
+        ]
+    }
+
+    # Add Bearer token security definition
+    swagger = Swagger(app, config=swagger_config)
+
+    # Add security definitions for Bearer token
+
     # CONFIGURE SERVICES
     app.config['database'] = Database(db)
     app.config['authenticator'] = Authenticator()
@@ -64,26 +100,19 @@ def create_app() -> Flask:
     # ROUTES
     @app.route('/', methods=['GET'])
     def _():
+        """
+        Welcome Endpoint.
+        ---
+        responses:
+          200:
+            description: A simple welcome message.
+        """
         return jsonify({"message": "Hello World"})
-    
-    # RESPONSE HEADERS
-    # @app.after_request
-    # def _(response):
-    #     response.headers['Access-Control-Allow-Origin'] = CLIENT_URL
-    #     response.headers['Access-Control-Allow-Credentials'] = 'true'
-    #     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
-    #     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
-    #     # Handle OPTIONS request directly
-    #     if request.method == 'OPTIONS':
-    #         response.status_code = 200
-    #     return response
     
     @app.after_request
     def _(response):
-        # increment the count for the endpoint requested in the database
         db = app.config['database']
         endpoint = request.endpoint
-        # convert the bp to the endpoint
         logging.info(f"Endpoint: {endpoint}")
         if endpoint == None:
             return response
@@ -97,7 +126,7 @@ def create_app() -> Flask:
         return response
 
     # REGISTER BLUEPRINTS
-    app.register_blueprint(authentication_bp, url_prefix='/api')
+    # app.register_blueprint(authentication_bp, url_prefix='/api')
     app.register_blueprint(qna_bp, url_prefix='/api')
-    app.register_blueprint(database_bp, url_prefix='/api')
+    # app.register_blueprint(database_bp, url_prefix='/api')
     return app, db

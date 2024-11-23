@@ -88,8 +88,9 @@ def api_key_required(func: callable) -> callable:
         authenticator = current_app.config['authenticator']
         api_key = request.headers.get('Authorization')
         try:
-            if api_key and api_key.startswith("Bearer "):
-                api_key = api_key.split(" ")[1]
+            if api_key:
+                if api_key.startswith("Bearer "):
+                    api_key = api_key.split(" ")[1]
                 user = db.get_user_by_api_key(api_key)
                 is_reset_available = authenticator.is_scrape_available(user)
                 if is_reset_available:
