@@ -81,7 +81,9 @@ def qna() -> tuple:
         response = llm_manager.query(prompt, context)
 
         # Get user information from API key
-        api_key = request.headers.get('Authorization').split(" ")[1]
+        api_key = request.headers.get('Authorization')
+        if api_key.startswith("Bearer "):
+            api_key = api_key.split(" ")[1]
         db = current_app.config['database']
         user = db.get_user_by_api_key(api_key)
         db.create_scrape(user.id, url, prompt, str(response))
