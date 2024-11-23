@@ -93,11 +93,6 @@ def create_app() -> Flask:
         client_url=os.getenv('CLIENT_URL')
     )
 
-    # @app.before_request
-    # def print_routes():
-    #     for rule in app.url_map.iter_rules():
-    #         print(f"Endpoint: {rule.endpoint}, URL: {rule.rule}")
-
     # ROUTES
     @app.route('/', methods=['GET'])
     def _():
