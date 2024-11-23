@@ -59,7 +59,7 @@ def create_app() -> Flask:
             {
                 "endpoint": 'apispec',
                 "route": '/docs/apispec.json',
-                "rule_filter": lambda rule: True,  # Include all endpoints
+                "rule_filter": lambda rule: "authentication_bp" not in rule.endpoint and "database_bp" not in rule.endpoint,
                 "model_filter": lambda tag: True,  # Include all models
             }
         ],
@@ -92,6 +92,11 @@ def create_app() -> Flask:
         email_password=os.getenv('EMAIL_PASSWORD'),
         client_url=os.getenv('CLIENT_URL')
     )
+
+    # @app.before_request
+    # def print_routes():
+    #     for rule in app.url_map.iter_rules():
+    #         print(f"Endpoint: {rule.endpoint}, URL: {rule.rule}")
 
     # ROUTES
     @app.route('/', methods=['GET'])
