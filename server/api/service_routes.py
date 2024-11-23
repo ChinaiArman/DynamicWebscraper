@@ -8,18 +8,18 @@ from services.decorators import api_key_required
 
 
 # DEFINE BLUEPRINT
-qna_bp = Blueprint('qna_bp', __name__)
+service_bp = Blueprint('service_bp', __name__)
 
 
 # ROUTES
-@qna_bp.route('/qna/query', methods=['GET'])
+@service_bp.route('/service/query', methods=['GET'])
 @api_key_required
-def qna() -> tuple:
+def query() -> tuple:
     """
-    QnA Query Endpoint
+    Service Query Endpoint.
     ---
     tags:
-      - QnA
+      - Service
     security:
       - BearerAuth: []  # This is the security definition being used
     parameters:

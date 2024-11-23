@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from flasgger import Swagger
 
 from api.authentication_routes import authentication_bp
-from api.qna_routes import qna_bp
+from api.service_routes import service_bp
 from api.database_routes import database_bp
 
 from services.Database import Database
@@ -112,7 +112,7 @@ def create_app() -> Flask:
         logging.info(f"Endpoint: {endpoint}")
         if endpoint == None:
             return response
-        available_endpoints = {"authentication_bp": "authenticate", "qna_bp": "qna", "database_bp": "database"}
+        available_endpoints = {"authentication_bp": "authenticate", "service_bp": "service", "database_bp": "database"}
         try:
             endpoint = "api/" + available_endpoints[endpoint.split(".")[0]] + "/" + endpoint.split(".")[1]
             method = request.method
@@ -123,6 +123,6 @@ def create_app() -> Flask:
 
     # REGISTER BLUEPRINTS
     app.register_blueprint(authentication_bp, url_prefix='/api')
-    app.register_blueprint(qna_bp, url_prefix='/api')
+    app.register_blueprint(service_bp, url_prefix='/api')
     app.register_blueprint(database_bp, url_prefix='/api')
     return app, db
