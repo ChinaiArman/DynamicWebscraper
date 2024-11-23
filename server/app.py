@@ -80,11 +80,7 @@ def create_app() -> Flask:
             {"BearerAuth": []}
         ]
     }
-
-    # Add Bearer token security definition
     swagger = Swagger(app, config=swagger_config)
-
-    # Add security definitions for Bearer token
 
     # CONFIGURE SERVICES
     app.config['database'] = Database(db)
