@@ -122,7 +122,7 @@ def create_app() -> Flask:
         return response
 
     # REGISTER BLUEPRINTS
-    # app.register_blueprint(authentication_bp, url_prefix='/api')
+    app.register_blueprint(authentication_bp, url_prefix='/api')
     app.register_blueprint(qna_bp, url_prefix='/api')
-    # app.register_blueprint(database_bp, url_prefix='/api')
+    app.register_blueprint(database_bp, url_prefix='/api')
     return app, db
