@@ -225,23 +225,6 @@ class Database:
         user.api_key = api_key
         self.db.session.commit()
         return
-
-    def update_name(self, user: User, name: str) -> None:
-        """
-        Update the name for a user.
-
-        Args
-        ----
-        user (User): The user object.
-        name (str): The new user name.
-
-        Returns
-        -------
-        None
-        """
-        user.name = name
-        self.db.session.commit()
-        return
     
     def decrement_requests(self, user: User) -> None:
         """
@@ -372,5 +355,26 @@ class Database:
         """
         """
         user.num_requests += 1
+        self.db.session.commit()
+        return
+    
+    def get_scrape_by_id(self, scrape_id: int) -> Scrape:
+        """
+        """
+        scrape = self.db.session.query(Scrape).filter(Scrape.id == scrape_id).first()
+        return scrape
+    
+    def delete_scrape(self, scrape_id: int) -> None:
+        """
+        """
+        scrape = self.get_scrape_by_id(scrape_id)
+        self.db.session.delete(scrape)
+        self.db.session.commit()
+        return
+    
+    def update_email(self, user: User, email: str) -> None:
+        """
+        """
+        user.email = email
         self.db.session.commit()
         return
