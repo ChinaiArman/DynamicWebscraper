@@ -13,7 +13,7 @@ const Register = () => {
   const registerUser = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         `${import.meta.env.VITE_SERVER_URL}/api/authenticate/register/`,
         {
           email: email,
@@ -95,6 +95,15 @@ const Register = () => {
                 >
                   {MESSAGES.REGISTER}
                 </button>
+                <p className="text-sm font-light text-gray-600 dark:text-gray-400">
+                  {MESSAGES.ALREADY_HAVE_ACCOUNT}{" "}
+                  <a
+                    href="/login"
+                    className="font-medium text-sky-500 hover:underline dark:text-primary-500"
+                  >
+                    {MESSAGES.LOGIN_HERE}
+                  </a>
+                </p>
               </form>
             </div>
           </div>

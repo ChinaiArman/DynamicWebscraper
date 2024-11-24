@@ -7,6 +7,8 @@ export const MESSAGES = {
   LOGIN: "Login",
   DONT_HAVE_ACCOUNT: "Don't have an account yet?",
   REGISTER_HERE: "Register here",
+  ALREADY_HAVE_ACCOUNT: "Already have an account?",
+  LOGIN_HERE: "Login here",
 
   CREATE_ACCOUNT: "Create an account",
   REGISTER: "Register",
