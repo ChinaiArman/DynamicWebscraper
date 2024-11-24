@@ -2,12 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import StatsTable from "../components/StatsTable";
+import ConfirmationPopup from "../components/ConfirmationPoup";
 
 import { MESSAGES } from "../messages";
 
 const Admin = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [endpointUsage, setEndpointUsage] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
@@ -56,20 +59,41 @@ const Admin = () => {
         { withCredentials: true }
       );
 
-      console.log(response.data);
-
       const userData = response.data.users.map((user) => ({
         Email: user.email,
         "API Key": user.api_key,
         "Total Requests": user.num_requests,
+        userId: user.id,
       }));
-
-      console.log("userData", userData);
 
       setUserData(userData);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
+  };
+
+  const deleteUser = async (userId) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/database/delete-user/`,
+        { user_id: userId },
+        { withCredentials: true }
+      );
+      getAllUsers();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
+  const handleDeleteClick = (userId) => {
+    setUserToDelete(userId);
+    setIsModalOpen(true);
+  };
+
+  const handleCancelDelete = () => {
+    setIsModalOpen(false);
+    setUserToDelete(null);
   };
 
   const logout = async () => {
@@ -119,6 +143,16 @@ const Admin = () => {
         <StatsTable
           columnNames={["Email", "API Key", "Total Requests"]}
           data={userData}
+          deleteUser={handleDeleteClick}
+          showDeleteButton={true}
+        />
+      )}
+
+      {isModalOpen && (
+        <ConfirmationPopup
+          message={MESSAGES.ADMIN.CONFIRM_DELETE_USER}
+          onCancel={handleCancelDelete}
+          onConfirm={() => deleteUser(userToDelete)}
         />
       )}
     </div>

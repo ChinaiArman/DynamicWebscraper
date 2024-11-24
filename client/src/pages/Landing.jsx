@@ -21,7 +21,6 @@ const Landing = () => {
         `${import.meta.env.VITE_SERVER_URL}/api/database/get-user-information/`,
         { withCredentials: true }
       );
-      console.log(response.data);
       setUserInfo(response.data);
     } catch (error) {
       console.error("Error fetching user information:", error);

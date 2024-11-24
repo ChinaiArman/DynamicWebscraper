@@ -14,10 +14,16 @@ export const MESSAGES = {
   LOGOUT: "Logout",
   ACCOUNT: "Account: ",
 
+  CANCEL: "Cancel",
+  CONFIRM: "Confirm",
+
   ADMIN: {
     VIEWING_AS_ADMIN: "You are viewing as an Admin.",
     API_STATS: "API Usage Stats",
     API_STATS_USER: "API Usage for each user",
+    ACTIONS: "Actions",
+    DELETE: "Delete",
+    CONFIRM_DELETE_USER: "Are you sure you want to delete this user?",
   },
 
   USER: {
