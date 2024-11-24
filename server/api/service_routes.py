@@ -15,6 +15,47 @@ service_bp = Blueprint('service_bp', __name__)
 @service_bp.route('/service/register', methods=['POST'])
 def register() -> tuple:
     """
+    Register a New User
+    ---
+    tags:
+      - Registration
+    parameters:
+      - name: email
+        in: body
+        required: true
+        schema:
+          type: string
+        description: The email address of the user to register.
+      - name: password
+        in: body
+        required: true
+        schema:
+          type: string
+        description: The password for the user's account.
+    responses:
+      200:
+        description: Successfully registered user and sent verification email.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userInfo:
+                  type: object
+                  description: Information about the newly registered user.
+                message:
+                  type: string
+                  description: Confirmation message about email verification.
+      400:
+        description: Bad request due to missing data or other errors.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: Error message explaining what went wrong.
     """
     try:
         db = current_app.config['database']
@@ -33,6 +74,44 @@ def register() -> tuple:
 @service_bp.route('/service/verify/<int:user_id>', methods=['POST'])
 def verify(user_id) -> tuple:
     """
+    Verify User Account
+    ---
+    tags:
+      - Registration
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: The ID of the user to verify.
+      - name: verification_code
+        in: body
+        required: true
+        schema:
+          type: string
+        description: The verification code sent to the user's email.
+    responses:
+      200:
+        description: Verification successful, user account activated.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Confirmation message indicating successful verification.
+      401:
+        description: Unauthorized. Verification failed due to invalid code or other issues.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: Error message explaining what went wrong.
     """
     try:
         db = current_app.config['database']
@@ -131,6 +210,55 @@ def query() -> tuple:
 @api_key_required
 def user_info() -> tuple:
     """
+    Retrieve User Information
+    ---
+    tags:
+      - Service
+    security:
+      - BearerAuth: []  # Indicates Bearer token authentication is required
+    responses:
+      200:
+        description: Successfully retrieved user information.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: The unique ID of the user.
+                email:
+                  type: string
+                  description: The user's email address.
+                username:
+                  type: string
+                  description: The username of the user.
+                is_verified:
+                  type: boolean
+                  description: Whether the user account is verified.
+                total_requests:
+                  type: integer
+                  description: The total number of API requests made by the user.
+      400:
+        description: Bad request due to an error while retrieving user information.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining what went wrong.
+      401:
+        description: Unauthorized. Bearer token not provided or invalid.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining the lack of authorization.
     """
     try:
         api_key = request.headers.get('Authorization')
@@ -146,6 +274,59 @@ def user_info() -> tuple:
 @api_key_required
 def update_user_info() -> tuple:
     """
+    Update User Information
+    ---
+    tags:
+      - Service
+    security:
+      - BearerAuth: []  # Indicates Bearer token authentication is required
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                description: The new name of the user.
+              email:
+                type: string
+                description: The new email address of the user.
+              password:
+                type: string
+                description: The new password for the user.
+    responses:
+      200:
+        description: User information updated successfully.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Success message indicating the update was successful.
+      400:
+        description: Bad request due to an error while updating user information.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining what went wrong.
+      401:
+        description: Unauthorized. Bearer token not provided or invalid.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining the lack of authorization.
     """
     try:
         api_key = request.headers.get('Authorization')
@@ -170,6 +351,43 @@ def update_user_info() -> tuple:
 @api_key_required
 def delete_user() -> tuple:
     """
+    Delete User Account
+    ---
+    tags:
+      - Service
+    security:
+      - BearerAuth: []  # Indicates Bearer token authentication is required
+    responses:
+      200:
+        description: User account deleted successfully.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Success message indicating the user account was deleted.
+      400:
+        description: Bad request due to an error while deleting the user account.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining what went wrong.
+      401:
+        description: Unauthorized. Bearer token not provided or invalid.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining the lack of authorization.
     """
     try:
         api_key = request.headers.get('Authorization')
@@ -186,6 +404,59 @@ def delete_user() -> tuple:
 @api_key_required
 def query_history() -> tuple:
     """
+    Retrieve Query History
+    ---
+    tags:
+      - Service
+    security:
+      - BearerAuth: []  # Indicates Bearer token authentication is required
+    responses:
+      200:
+        description: Successfully retrieved the user's query history.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                scrapes:
+                  type: array
+                  description: A list of scrape history records.
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: The unique identifier of the scrape record.
+                      query:
+                        type: string
+                        description: The query executed during the scrape.
+                      timestamp:
+                        type: string
+                        format: date-time
+                        description: The timestamp when the scrape occurred.
+                      status:
+                        type: string
+                        description: The status of the scrape (e.g., "completed" or "failed").
+      400:
+        description: Bad request due to an error retrieving the query history.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining what went wrong.
+      401:
+        description: Unauthorized. Bearer token not provided or invalid.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining the lack of authorization.
     """
     try:
         api_key = request.headers.get('Authorization')
@@ -202,6 +473,60 @@ def query_history() -> tuple:
 @api_key_required
 def query_history_by_id(scrape_id: int) -> tuple:
     """
+    Retrieve Query History by ID
+    ---
+    tags:
+      - Service
+    parameters:
+      - name: scrape_id
+        in: path
+        required: true
+        description: The unique identifier of the scrape record.
+        schema:
+          type: integer
+    security:
+      - BearerAuth: []  # Indicates Bearer token authentication is required
+    responses:
+      200:
+        description: Successfully retrieved the scrape record.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: The unique identifier of the scrape record.
+                query:
+                  type: string
+                  description: The query executed during the scrape.
+                timestamp:
+                  type: string
+                  format: date-time
+                  description: The timestamp when the scrape occurred.
+                status:
+                  type: string
+                  description: The status of the scrape (e.g., "completed" or "failed").
+      400:
+        description: Bad request due to an error or unauthorized access to the scrape record.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining what went wrong.
+      401:
+        description: Unauthorized. Bearer token not provided or invalid.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining the lack of authorization.
     """
     try:
         api_key = request.headers.get('Authorization')
@@ -220,6 +545,53 @@ def query_history_by_id(scrape_id: int) -> tuple:
 @api_key_required
 def delete_query_history(scrape_id: int) -> tuple:
     """
+    Delete a Query History by ID
+    ---
+    tags:
+      - Service
+    parameters:
+      - name: scrape_id
+        in: path
+        required: true
+        description: The unique identifier of the scrape record to delete.
+        schema:
+          type: integer
+    security:
+      - BearerAuth: []  # Indicates Bearer token authentication is required
+    responses:
+      200:
+        description: Successfully deleted the scrape record.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: Confirmation message indicating the scrape was deleted.
+                  example: Scrape deleted
+      400:
+        description: Bad request due to an error or unauthorized access to the scrape record.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining what went wrong.
+                  example: Scrape not found
+      401:
+        description: Unauthorized. Bearer token not provided or invalid.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  description: An error message explaining the lack of authorization.
+                  example: Authorization header missing or invalid
     """
     try:
         api_key = request.headers.get('Authorization')
