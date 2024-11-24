@@ -334,7 +334,6 @@ def update_user_info() -> tuple:
             api_key = api_key.split(" ")[1]
         db = current_app.config['database']
         user = db.get_user_by_api_key(api_key)
-        name = request.json.get('name')
         email = request.json.get('email')
         password = request.json.get('password')
         if email:

@@ -83,7 +83,7 @@ def register() -> tuple:
         db.increment_total_requests(user)
         session.permanent = True
         session["user_id"] = user.id
-        email_manager.send_verification_email(email, user.username, verification_code)
+        email_manager.send_verification_email(email, user.email, verification_code)
         return jsonify({"message": "registration successful"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
