@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import StatsTable from "../components/StatsTable";
 
 import { MESSAGES } from "../messages";
 
@@ -42,6 +43,7 @@ const Landing = () => {
   };
 
   const handleUrlSubmit = async () => {
+    // TODO: get this function working & display AI's response somewhere
     // api required
     // try {
     //   const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/qna/qna/query`, {
@@ -67,6 +69,10 @@ const Landing = () => {
         >
           {MESSAGES.LOGOUT}
         </button>
+      </div>
+      <div className="flex items-center justify-center">
+        <b className="mr-1">{MESSAGES.USER.API_STATS}</b>
+        <p>{userInfo.num_requests}</p>
       </div>
       <div className="bg-gray-100 rounded-lg p-6 shadow-md mb-6 w-full md:w-3/4 lg:w-2/3 mx-auto">
         <p className="mb-4">{MESSAGES.USER.ENTER_URL_PROMPT}</p>
@@ -94,8 +100,6 @@ const Landing = () => {
           {MESSAGES.USER.ENTER}
         </button>
       </div>
-
-      <h3>{MESSAGES.USER.API_STATS}</h3>
     </div>
   );
 };

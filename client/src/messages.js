@@ -25,6 +25,6 @@ export const MESSAGES = {
     ENTER_URL: "Enter a URL",
     ENTER_PROMPT: "Enter a Prompt",
     ENTER: "Enter",
-    "API_STATS:": "Below are your API consumption stats",
+    API_STATS: "Your total API consumption: ",
   },
 };
