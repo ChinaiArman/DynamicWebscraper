@@ -8,11 +8,13 @@ import { MESSAGES } from "../messages";
 const Admin = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [endpointUsage, setEndpointUsage] = useState(null);
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     getUserInfo();
     getEnpointUsage();
+    getAllUsers();
   }, []);
 
   const getUserInfo = async () => {
@@ -43,6 +45,26 @@ const Admin = () => {
       setEndpointUsage(formattedData);
     } catch (error) {
       console.error("Error fetching endpoint usage", error);
+    }
+  };
+
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/database/get-all-users/`,
+        {},
+        { withCredentials: true }
+      );
+
+      const userData = response.data.users.map((user) => ({
+        Email: user.email,
+        "API Key": user.api_key,
+        Requests: user.num_requests,
+      }));
+
+      setUserData(userData);
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
   };
 
@@ -89,6 +111,12 @@ const Admin = () => {
       )}
       <br />
       <b>{MESSAGES.ADMIN.API_STATS_USER}</b>
+      {userData && (
+        <StatsTable
+          columnNames={["Email", "API Key", "Total Requests"]}
+          data={userData}
+        />
+      )}
     </div>
   );
 };
