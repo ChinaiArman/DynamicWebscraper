@@ -66,6 +66,7 @@ def create_app() -> Flask:
         "static_url_path": "/flasgger_static",
         "swagger_ui": True,
         "specs_route": "/api/docs/",
+        'openapi': '3.0.1'
     }
     app.config['SWAGGER'] = {
         "securityDefinitions": {

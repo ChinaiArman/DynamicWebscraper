@@ -19,19 +19,22 @@ def register() -> tuple:
     ---
     tags:
       - Registration
-    parameters:
-      - name: email
-        in: body
+    requestBody:
         required: true
-        schema:
-          type: string
-        description: The email address of the user to register.
-      - name: password
-        in: body
-        required: true
-        schema:
-          type: string
-        description: The password for the user's account.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: "The email address of the user to register."
+                password:
+                  type: string
+                  description: "The password for the user's account."
     responses:
       200:
         description: Successfully registered user and sent verification email.
@@ -42,7 +45,7 @@ def register() -> tuple:
               properties:
                 userInfo:
                   type: object
-                  description: Information about the newly registered user.
+                  description: The user information.
                 message:
                   type: string
                   description: Confirmation message about email verification.
@@ -66,7 +69,7 @@ def register() -> tuple:
         verification_code = authenticator.generate_one_time_code()
         user = db.create_user(email, password, verification_code)
         db.increment_total_requests(user)
-        email_manager.send_verification_email(email, user.username, verification_code)
+        email_manager.send_verification_email(email, user.email, verification_code)
         return jsonify({"userInfo": user.to_dict(), "message": "Check email for verification code"}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
@@ -84,13 +87,19 @@ def verify(user_id) -> tuple:
         required: true
         schema:
           type: integer
-        description: The ID of the user to verify.
-      - name: verification_code
-        in: body
+        description: The unique ID of the user to verify.
+    requestBody:
         required: true
-        schema:
-          type: string
-        description: The verification code sent to the user's email.
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - verification_code
+              properties:
+                verification_code:
+                  type: string
+                  description: "The verification code sent to the user's email."
     responses:
       200:
         description: Verification successful, user account activated.
