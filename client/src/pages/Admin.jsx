@@ -56,11 +56,15 @@ const Admin = () => {
         { withCredentials: true }
       );
 
+      console.log(response.data);
+
       const userData = response.data.users.map((user) => ({
         Email: user.email,
         "API Key": user.api_key,
-        Requests: user.num_requests,
+        "Total Requests": user.num_requests,
       }));
+
+      console.log("userData", userData);
 
       setUserData(userData);
     } catch (error) {

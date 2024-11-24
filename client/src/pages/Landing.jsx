@@ -21,6 +21,7 @@ const Landing = () => {
         `${import.meta.env.VITE_SERVER_URL}/api/database/get-user-information/`,
         { withCredentials: true }
       );
+      console.log(response.data);
       setUserInfo(response.data);
     } catch (error) {
       console.error("Error fetching user information:", error);
@@ -45,15 +46,6 @@ const Landing = () => {
   const handleUrlSubmit = async () => {
     // TODO: get this function working & display AI's response somewhere
     // api required
-    // try {
-    //   const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/qna/qna/query`, {
-    //     url: url,
-    //     prompt: prompt
-    //   }, { withCredentials: true });
-    //   console.log(response);
-    // } catch (error) {
-    //   console.error("Error:", error)
-    // }
     console.log(url, prompt);
   };
 
@@ -70,10 +62,12 @@ const Landing = () => {
           {MESSAGES.LOGOUT}
         </button>
       </div>
-      <div className="flex items-center justify-center">
-        <b className="mr-1">{MESSAGES.USER.API_STATS}</b>
-        <p>{userInfo.num_requests}</p>
-      </div>
+      {userInfo && (
+        <div className="flex items-center justify-center">
+          <b className="mr-1">{MESSAGES.USER.API_STATS}</b>
+          <p>{userInfo.num_requests}</p>
+        </div>
+      )}
       <div className="bg-gray-100 rounded-lg p-6 shadow-md mb-6 w-full md:w-3/4 lg:w-2/3 mx-auto">
         <p className="mb-4">{MESSAGES.USER.ENTER_URL_PROMPT}</p>
         <div className="mb-4">
