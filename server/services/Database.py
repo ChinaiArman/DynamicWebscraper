@@ -320,6 +320,9 @@ class Database:
         """
         user = self.get_user_by_id(user_id)
         self.db.session.delete(user)
+        scrapes = self.get_scrapes_by_user_id(user_id)
+        for scrape in scrapes:
+            self.db.session.delete(scrape)
         self.db.session.commit()
         return
     

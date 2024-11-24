@@ -120,3 +120,25 @@ def get_endpoint_usage() -> tuple:
         return jsonify({"endpoint_usage": endpoint_usage}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+    
+@database_bp.route('/database/delete-user/', methods=['POST'])
+@admin_required
+def delete_user() -> tuple:
+    """
+    Delete a user.
+
+    Args
+    ----
+    None
+
+    Returns
+    -------
+    tuple: The response and status code.
+    """
+    try:
+        db = current_app.config['database']
+        user_id = request.json.get('user_id')
+        db.delete_user(user_id)
+        return jsonify({"message": "user deleted"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
