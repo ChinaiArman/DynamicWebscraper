@@ -141,9 +141,9 @@ def query() -> tuple:
     Service Query Endpoint.
     ---
     tags:
-      - Service
+      - AI Service
     security:
-      - BearerAuth: []
+      - bearerAuth: []
     parameters:
       - name: url
         in: query

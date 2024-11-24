@@ -60,7 +60,7 @@ def create_app() -> Flask:
                 "endpoint": 'apispec',
                 "route": '/docs/apispec.json',
                 "rule_filter": lambda rule: "authentication_bp" not in rule.endpoint and "database_bp" not in rule.endpoint,
-                "model_filter": lambda tag: True,  # Include all models
+                "model_filter": lambda tag: True,
             }
         ],
         "static_url_path": "/flasgger_static",
@@ -69,19 +69,19 @@ def create_app() -> Flask:
         'openapi': '3.0.1'
     }
     app.config['SWAGGER'] = {
-        "securityDefinitions": {
-            "BearerAuth": {
-                "type": "apiKey",
-                "in": "header",
-                "name": "Authorization",
-                "description": "Bearer token for authorization (use 'Bearer <your_token>')"
+        "openapi": "3.0.1",
+        "components": {
+            "securitySchemes": {
+                "bearerAuth": {
+                    "type": "http",
+                    "scheme": "bearer",
+                    "bearerFormat": "JWT"
+                }
             }
         },
-        "security": [
-            {"BearerAuth": []}
-        ]
+        "security": [{"bearerAuth": []}]
     }
-    swagger = Swagger(app, config=swagger_config)
+    Swagger(app, config=swagger_config)
 
     # CONFIGURE SERVICES
     app.config['database'] = Database(db)
