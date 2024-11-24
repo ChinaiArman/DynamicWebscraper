@@ -19,6 +19,17 @@ export const MESSAGES = {
   CANCEL: "Cancel",
   CONFIRM: "Confirm",
 
+  FORGOT_PASSWORD: "Forgot password?",
+  REQUEST_PASSWORD_TITLE: "Request Password Reset Code",
+  REQUEST: "Request",
+  RESET_PASSWORD: "Reset Password",
+  RESET_CODE: "Reset Code",
+  ENTER_RESET_CODE: "Enter reset code",
+  NEW_PASSWORD: "New Password",
+  ENTER_NEW_PASSWORD: "Enter new password",
+  
+
+
   ADMIN: {
     VIEWING_AS_ADMIN: "You are viewing as an Admin.",
     API_STATS: "API Usage Stats",
