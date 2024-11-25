@@ -1,4 +1,10 @@
 """
+service_routes.py
+This module contains the service routes for the DynamicWebscraper application.
+
+Disclaimer
+----------
+The swagger documentation was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS

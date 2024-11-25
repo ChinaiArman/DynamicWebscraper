@@ -1,4 +1,6 @@
 """
+authentication_routes.py
+This module contains the routes for the authentication API endpoints.
 """
 
 # IMPORTS

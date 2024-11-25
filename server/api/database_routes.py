@@ -1,4 +1,6 @@
 """
+database_routes.py
+This module contains the routes for the database API endpoints.
 """
 
 # IMPORTS

@@ -1,4 +1,10 @@
 """
+Authenticator.py
+This module contains the Authenticator class used to authenticate users, sessions, requests, and API keys.
+
+Disclaimer
+----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS
@@ -7,7 +13,7 @@ import secrets
 from datetime import datetime
 import regex as re
 
-from exceptions import NoCreditsRemaining, IncorrectPassword, InvalidOneTimeCode
+from exceptions import IncorrectPassword, InvalidOneTimeCode
 
 
 # AUTHENTICATOR CLASS

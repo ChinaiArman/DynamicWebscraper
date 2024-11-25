@@ -1,4 +1,6 @@
 """
+app.py
+This file contains the Flask configuration. It initializes the application, configures the database, sessions, and services, and registers the blueprints for the application.
 """
 
 # IMPORTS

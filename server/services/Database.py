@@ -1,4 +1,10 @@
 """
+Database.py
+This module contains the Database class, which is used to interact with the MySQL database.
+
+Disclaimer:
+-----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS
@@ -350,12 +356,30 @@ class Database:
     
     def get_endpoint_usage(self) -> list:
         """
+        Get the usage for all endpoints.
+
+        Args
+        ----
+        None
+
+        Returns
+        -------
+        usage (list): The list of endpoint usage.
         """
         usage = self.db.session.query(EndpointUsage).all()
         return [u.to_dict() for u in usage]
     
     def increment_total_requests(self, user) -> None:
         """
+        Increment the total requests for a user.
+
+        Args
+        ----
+        user (User): The user object.
+
+        Returns
+        -------
+        None
         """
         user.num_requests += 1
         self.db.session.commit()
@@ -363,12 +387,34 @@ class Database:
     
     def get_scrape_by_id(self, scrape_id: int) -> Scrape:
         """
+        Get a scrape by ID.
+        
+        Args
+        ----
+        scrape_id (int): Scrape ID.
+
+        Returns
+        -------
+        scrape (Scrape): The scrape
+
+        Disclaimer
+        ----------
+        This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
         """
         scrape = self.db.session.query(Scrape).filter(Scrape.id == scrape_id).first()
         return scrape
     
     def delete_scrape(self, scrape_id: int) -> None:
         """
+        Delete a scrape.
+
+        Args
+        ----
+        scrape_id (int): Scrape ID.
+
+        Returns
+        -------
+        None
         """
         scrape = self.get_scrape_by_id(scrape_id)
         self.db.session.delete(scrape)
@@ -377,6 +423,16 @@ class Database:
     
     def update_email(self, user: User, email: str) -> None:
         """
+        Update a user's email address.
+
+        Args
+        ----
+        user (User): The user object.
+        email (str): The new email address
+        
+        Returns
+        -------
+        None
         """
         user.email = email
         self.db.session.commit()

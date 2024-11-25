@@ -1,4 +1,10 @@
 """
+decorators.py
+This module contains decorators for the DynamicWebscraper application.
+
+Disclaimer
+----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS
