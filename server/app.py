@@ -66,7 +66,9 @@ def create_app() -> Flask:
         "static_url_path": "/flasgger_static",
         "swagger_ui": True,
         "specs_route": "/api/docs/",
-        'openapi': '3.0.1'
+        'openapi': '3.0.1',
+        'title': 'Dynamic Webscraping API',
+        'version': '1.0.0',
     }
     app.config['SWAGGER'] = {
         "openapi": "3.0.1",
@@ -98,11 +100,13 @@ def create_app() -> Flask:
     @app.route('/', methods=['GET'])
     def _():
         """
-        Welcome Endpoint.
+        Root route.
         ---
+        tags:
+            - Root
         responses:
-          200:
-            description: A simple welcome message.
+            200:
+                description: Hello World
         """
         return jsonify({"message": "Hello World"})
     
