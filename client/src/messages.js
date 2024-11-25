@@ -12,6 +12,8 @@ export const MESSAGES = {
 
   CREATE_ACCOUNT: "Create an account",
   REGISTER: "Register",
+  INVALID_EMAIL: "Invalid email",
+  REGISTRATION_FAILED: "Registration failed",
 
   LOGOUT: "Logout",
   ACCOUNT: "Account: ",
@@ -27,7 +29,7 @@ export const MESSAGES = {
   ENTER_RESET_CODE: "Enter reset code",
   NEW_PASSWORD: "New Password",
   ENTER_NEW_PASSWORD: "Enter new password",
-  
+
 
 
   ADMIN: {

@@ -8,8 +8,20 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Function to validate email format using regex
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const registerUser = async (event) => {
     event.preventDefault();
+    
+    if (!isValidEmail(email)) {
+      setErrorMessage(MESSAGES.INVALID_EMAIL); // Assuming there's a message for invalid email
+      return;
+    }
+
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_SERVER_URL}/api/authenticate/register/`,
@@ -23,7 +35,7 @@ const Register = () => {
         window.location.href = "/login";
       }
     } catch (error) {
-      setErrorMessage(error.response.data.error || "Registration failed.");
+      setErrorMessage(error.response?.data?.error || MESSAGES.REGISTRATION_FAILED);
     }
   };
 
