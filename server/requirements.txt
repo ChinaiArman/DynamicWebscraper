@@ -10,3 +10,4 @@ cryptography==43.0.3
 bs4==0.0.2
 requests==2.32.3
 flasgger==0.9.7.1
+regex==2024.11.6
