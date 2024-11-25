@@ -65,6 +65,7 @@ def register() -> tuple:
         authenticator = current_app.config['authenticator']
         email_manager = current_app.config['emailManager']
         email = request.json.get('email')
+        authenticator.validate_email(email)
         password = authenticator.encrypt_password(request.json.get('password'))
         verification_code = authenticator.generate_one_time_code()
         user = db.create_user(email, password, verification_code)

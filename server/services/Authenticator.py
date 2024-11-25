@@ -5,6 +5,7 @@
 import bcrypt
 import secrets
 from datetime import datetime
+import regex as re
 
 from exceptions import NoCreditsRemaining, IncorrectPassword, InvalidOneTimeCode
 
@@ -154,3 +155,24 @@ class Authenticator:
         if code != user_code or not user_code:
             raise InvalidOneTimeCode()
         return True
+
+    def validate_email(self, email: str) -> bool:
+        """
+        Validate an email address.
+
+        Args
+        ----
+        email (str): The email address to validate.
+
+        Returns
+        -------
+        bool: True if the email address is valid, otherwise False.
+
+        Disclaimer
+        ----------
+        This method was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
+        """
+        # use regex to validate email
+        is_valid = bool(re.match(r"[^@]+@[^@]+\.[^@]+", email))
+        if not is_valid:
+            raise ValueError("Invalid email format")
