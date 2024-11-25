@@ -1,4 +1,10 @@
 """
+EndpointUsage.py
+This module contains the data class to represent an endpoint usage in the database.
+
+Disclaimer
+----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS

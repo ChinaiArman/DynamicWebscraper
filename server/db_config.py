@@ -1,4 +1,6 @@
 """
+db_config.py
+This module contains the configuration for the MYSQL database connection.
 """
 
 # IMPORTS

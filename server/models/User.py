@@ -1,4 +1,10 @@
 """
+User.py
+This module contains a data class to represent a user in the database.
+
+Disclaimer
+----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS

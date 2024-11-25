@@ -1,4 +1,9 @@
 """
+EmailManager.py
+
+Disclaimer:
+-----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS
@@ -11,12 +16,17 @@ import smtplib
 class EmailManager:
     """
     Handles email operations using Gmail SMTP
+
+    Disclaimer:
+    -----------
+    This class was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
     """
     def __init__(self, email_address: str, email_password: str, client_url: str):
         """
         Initialize EmailManager with Gmail credentials
         
         Args:
+        -----
             gmail_user (str): Gmail email address
             gmail_password (str): Gmail app password
             client_url (str): Base URL of your application
@@ -30,9 +40,18 @@ class EmailManager:
         Send verification email with confirmation link
         
         Args:
+        -----
             to_email (str): Recipient's email address
             username (str): Username of the new user
             verification_code (str): Verification code for the user
+
+        Returns:
+        --------
+            None
+
+        Disclaimer:
+        -----------
+        This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer
         """
         msg = MIMEMultipart()
         msg['From'] = self.email_address
@@ -67,6 +86,20 @@ class EmailManager:
         
     def forgot_password_email(self, to_email: str, reset_code: str) -> None:
         """
+        Send password reset email with reset code
+
+        Args:
+        -----
+            to_email (str): Recipient's email address
+            reset_code (str): Reset code for the user
+
+        Returns:
+        --------
+            None
+
+        Disclaimer:
+        -----------
+        This function was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
         """
         msg = MIMEMultipart()
         msg['From'] = self.email_address

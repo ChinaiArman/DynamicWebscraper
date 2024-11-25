@@ -1,4 +1,10 @@
 """
+LLMManager.py
+This module contains the LLMManager class for interacting with the Language Learning Model (LLM) server.
+
+Disclaimer
+----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS

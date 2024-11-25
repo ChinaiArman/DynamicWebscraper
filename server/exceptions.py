@@ -1,4 +1,6 @@
 """
+exceptions.py
+This module contains custom exceptions for the DynamicWebscraper application.
 """
 
 class InvalidAPIKey(Exception):

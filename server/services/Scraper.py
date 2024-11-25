@@ -1,4 +1,10 @@
 """
+Scraper.py
+This module contains a class to scrape a website and return the text content.
+
+Disclaimer
+----------
+This file was created with the assistance of AI tools (GitHub Copilot). All code created is original and has been reviewed and understood by a human developer.
 """
 
 # IMPORTS
