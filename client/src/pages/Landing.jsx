@@ -70,6 +70,8 @@ const Landing = () => {
     } finally {
       // set loading state to false
       setLoading(false);
+      // incremenet the num_requests in userInfo state
+      setUserInfo((prev) => ({ ...prev, num_requests: prev.num_requests + 1 }));
     }
   };
 
