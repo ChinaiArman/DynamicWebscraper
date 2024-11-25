@@ -12,7 +12,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Landing from "./pages/Landing";
 import Admin from "./pages/Admin";
-import SwaggerUIComponent from "./pages/SwaggerUI";
 import RequestReset from "./pages/RequestReset";
 import ResetPassword from "./pages/ResetPassword";
 
@@ -44,10 +43,6 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
-  },
-  {
-    path: "/docs",
-    element: <SwaggerUIComponent />,
   },
 ]);
 

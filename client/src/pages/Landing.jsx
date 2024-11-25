@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import StatsTable from "../components/StatsTable";
 
 import { MESSAGES } from "../messages";
 
@@ -10,7 +9,6 @@ const Landing = () => {
   const [url, setUrl] = useState("");
   const [prompt, setPrompt] = useState("");
   const navigate = useNavigate();
-
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -43,9 +41,25 @@ const Landing = () => {
   };
 
   const handleUrlSubmit = async () => {
-    // TODO: get this function working & display AI's response somewhere
-    // api required
-    console.log(url, prompt);
+    // make an axios request to /api/service/query with the url and prompt, also use the users API key as a bearer token
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URL}/api/service/query`,
+        {
+          params: {
+            url,
+            prompt,
+          },
+          headers: {
+            Authorization: `Bearer ${userInfo.api_key}`,
+          },
+        }
+      );
+      console.log(response);
+    }
+    catch (error) {
+      console.error("Error querying the service:", error);
+    }
   };
 
   return (
