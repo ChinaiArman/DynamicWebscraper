@@ -8,7 +8,9 @@ const Landing = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [url, setUrl] = useState("");
   const [prompt, setPrompt] = useState("");
+  const [results, setResults] = useState([]); // New state for storing results
   const navigate = useNavigate();
+
   useEffect(() => {
     getUserInfo();
   }, []);
@@ -54,9 +56,8 @@ const Landing = () => {
           },
         }
       );
-      console.log(response);
-    }
-    catch (error) {
+      setResults(response.data); // Set the results from API response
+    } catch (error) {
       console.error("Error querying the service:", error);
     }
   };
@@ -106,6 +107,24 @@ const Landing = () => {
           {MESSAGES.USER.ENTER}
         </button>
       </div>
+      {/* Results Section */}
+      {results.length > 0 && (
+        <div className="bg-white rounded-lg p-6 shadow-md w-full md:w-3/4 lg:w-2/3 mx-auto">
+          <h2 className="text-lg font-bold mb-4">{MESSAGES.USER.RESULTS}</h2>
+          <ul>
+            {results.map((item, index) => (
+              <li key={index} className="mb-2">
+                <p>
+                  <strong>Answer:</strong> {item.answer || "No answer"}
+                </p>
+                <p>
+                  <strong>Score:</strong> {item.score.toFixed(2)}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

@@ -47,5 +47,6 @@ export const MESSAGES = {
     ENTER_PROMPT: "Enter a Prompt",
     ENTER: "Enter",
     API_STATS: "Your total API consumption: ",
+    RESULTS: "Results from the API",
   },
 };
