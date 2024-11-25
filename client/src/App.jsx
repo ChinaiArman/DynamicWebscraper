@@ -14,6 +14,7 @@ import Landing from "./pages/Landing";
 import Admin from "./pages/Admin";
 import RequestReset from "./pages/RequestReset";
 import ResetPassword from "./pages/ResetPassword";
+import Verify from "./pages/Verify.jsx";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
               <Route path="/register" element={<Register />} />
               <Route path="/request-reset" element={<RequestReset />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/verify" element={<Verify />} />
               
               {/* Private Routes */}
               <Route

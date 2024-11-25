@@ -25,12 +25,17 @@ export const MESSAGES = {
   REQUEST_PASSWORD_TITLE: "Request Password Reset Code",
   REQUEST: "Request",
   RESET_PASSWORD: "Reset Password",
+  CHECK_EMAIL_FOR_RESET: "Please check your email for the reset code.",
   RESET_CODE: "Reset Code",
   ENTER_RESET_CODE: "Enter reset code",
   NEW_PASSWORD: "New Password",
   ENTER_NEW_PASSWORD: "Enter new password",
 
-
+  VERIFY_ACCOUNT: "Verify your account",
+  VERIFY: "Verify",
+  CHECK_EMAIL_FOR_VERIFICATION: "Please check your email for the verification code.",
+  VERIFICATION_CODE: "Verification Code",
+  ENTER_VERIFICATION_CODE: "Enter verification code",
 
   ADMIN: {
     VIEWING_AS_ADMIN: "You are viewing as an Admin.",

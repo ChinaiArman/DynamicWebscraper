@@ -45,7 +45,7 @@ const ResetPassword = () => {
                 {MESSAGES.RESET_PASSWORD}
               </h1>
               <div className="bg-gray-200 bg-opacity-75 text-gray-900 p-3 mb-4 rounded-lg px-5 py-2.5">
-                  <p className="text-sm">Please check your email for the reset code. </p>
+                  <p className="text-sm">{MESSAGES.CHECK_EMAIL_FOR_RESET} </p>
                 </div>
               {errorMessage && (
                 <div className="bg-red-200 bg-opacity-75 text-red-900 p-3 mb-4 rounded-lg px-5 py-2.5">

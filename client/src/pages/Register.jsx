@@ -32,7 +32,7 @@ const Register = () => {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        window.location.href = "/login";
+        window.location.href = "/verify";
       }
     } catch (error) {
       setErrorMessage(error.response?.data?.error || MESSAGES.REGISTRATION_FAILED);
