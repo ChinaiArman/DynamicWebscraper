@@ -41,7 +41,6 @@ const Landing = () => {
   };
 
   const handleUrlSubmit = async () => {
-    // make an axios request to /api/service/query with the url and prompt, also use the users API key as a bearer token
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_SERVER_URL}/api/service/query`,
