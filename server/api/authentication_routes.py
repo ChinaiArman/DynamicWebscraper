@@ -236,7 +236,7 @@ def is_verified() -> tuple:
     except Exception as e:
         return jsonify({"error": str(e)}), 401
     
-@authentication_bp.route('/authenticate/is-logged-in/', methods=['GET'])
+@authentication_bp.route('/authenticate/is-unverified/', methods=['GET'])
 @login_required
 def is_logged_in() -> tuple:
     """

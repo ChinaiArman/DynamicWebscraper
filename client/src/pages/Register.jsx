@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 import { MESSAGES } from "../messages";
@@ -8,7 +7,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
 
   const registerUser = async (event) => {
     event.preventDefault();
@@ -22,7 +20,7 @@ const Register = () => {
         { withCredentials: true }
       );
       if (response.status === 200) {
-        navigate("/login");
+        window.location.href = "/login";
       }
     } catch (error) {
       setErrorMessage(error.response.data.error || "Registration failed.");

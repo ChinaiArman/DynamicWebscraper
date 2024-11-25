@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 import { MESSAGES } from "../messages";
@@ -8,7 +7,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
 
   let loginUser = async (event) => {
     event.preventDefault();
@@ -30,9 +28,9 @@ const Login = () => {
         );
         const isAdmin = userInfoResponse.data.is_admin;
         if (isAdmin) {
-          navigate("/admin");
+          window.location.href = '/admin';
         } else {
-          navigate("/landing");
+          window.location.href = '/';
         }
       }
     } catch (error) {
