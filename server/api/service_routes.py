@@ -167,8 +167,11 @@ def query() -> tuple:
               type: object
               properties:
                 result:
-                  type: string
+                  type: object
                   description: The AI-generated response to the query.
+                warning:
+                  type: string
+                  description: Warning message about remaining requests.
       400:
         description: Error response due to a bad request or exception.
         content:
@@ -210,6 +213,17 @@ def query() -> tuple:
         db = current_app.config['database']
         user = db.get_user_by_api_key(api_key)
         db.create_scrape(user.id, url, prompt, str(response))
+
+        # if user.requests_available > 0, add a warning to the response
+        if user.requests_available <= 0:
+            response = {
+                "result": response,
+                "warning": "You have 0 requests remaining."
+            }
+        else:
+            response = {
+                "result": response
+            }
 
         # Return the response
         return jsonify(response), 200

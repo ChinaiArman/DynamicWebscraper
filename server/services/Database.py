@@ -226,7 +226,7 @@ class Database:
         self.db.session.commit()
         return
     
-    def decrement_requests(self, user: User) -> None:
+    def decrement_requests_available(self, user: User) -> None:
         """
         Decrement the number of requests available for a user.
 

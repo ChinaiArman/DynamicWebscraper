@@ -95,7 +95,8 @@ def api_key_required(func: callable) -> callable:
                 is_reset_available = authenticator.is_scrape_available(user)
                 if is_reset_available:
                     db.reset_requests(user)
-                db.decrement_requests(user)
+                if user.requests_available > 0:
+                    db.decrement_requests_available(user)
                 db.increment_total_requests(user)
                 return func(*args, **kwargs)
             else:

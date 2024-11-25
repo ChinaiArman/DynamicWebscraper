@@ -48,5 +48,6 @@ export const MESSAGES = {
     ENTER: "Enter",
     API_STATS: "Your total API consumption: ",
     RESULTS: "Results from the API",
+    LOADING: "Your response is processing, this process may take a while.",
   },
 };
