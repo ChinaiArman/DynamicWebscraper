@@ -17,6 +17,7 @@ export const MESSAGES = {
 
   LOGOUT: "Logout",
   ACCOUNT: "Account: ",
+  API_KEY: "API Key: ",
 
   CANCEL: "Cancel",
   CONFIRM: "Confirm",

@@ -137,7 +137,7 @@ def verify(user_id) -> tuple:
         authenticator.verify_code(verification_code, user.verification_code)
         api_key = authenticator.generate_api_key()
         db.verify_user(user, api_key)
-        return jsonify({"message": "verification successful"}), 200
+        return jsonify({"message": "verification successful", "api_key": api_key}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
