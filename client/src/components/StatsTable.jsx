@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { MESSAGES } from "../messages";
 
+// Some of this code in this page was created with the assistance of previous project as well as copilot.
+
 const StatsTable = ({
   columnNames,
   data = [],

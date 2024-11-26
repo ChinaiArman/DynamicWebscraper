@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { MESSAGES } from "../messages";
 
+// Some of this code in this page was created with the assistance of previous project as well as copilot.
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

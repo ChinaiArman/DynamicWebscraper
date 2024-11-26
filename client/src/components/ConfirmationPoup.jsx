@@ -1,6 +1,8 @@
 import React from "react";
 import { MESSAGES } from "../messages";
 
+// Some of this code in this page was created with the assistance of previous project as well as copilot.
+
 const ConfirmationPopup = ({ message, onCancel, onConfirm }) => {
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
