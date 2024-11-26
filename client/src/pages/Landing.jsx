@@ -81,15 +81,17 @@ const Landing = () => {
         <p>
           {MESSAGES.ACCOUNT} {userInfo?.email}
         </p>
-        <p>
-          {MESSAGES.API_KEY} {userInfo?.api_key}
-        </p>
         <button
           onClick={logout}
           className=" text-white bg-gray-600 hover:bg-gray-600/75 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         >
           {MESSAGES.LOGOUT}
         </button>
+      </div>
+      <div className="mt-4 mb-6">
+        <p>
+          {MESSAGES.API_KEY} {userInfo?.api_key}
+        </p>
       </div>
       {userInfo && (
         <div className="flex items-center justify-center">
