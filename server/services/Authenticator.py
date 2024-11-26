@@ -13,7 +13,7 @@ import secrets
 from datetime import datetime
 import regex as re
 
-from exceptions import IncorrectPassword, InvalidOneTimeCode
+from exceptions import IncorrectPassword, InvalidOneTimeCode, InvalidEmailAddress
 
 
 # AUTHENTICATOR CLASS
@@ -181,4 +181,4 @@ class Authenticator:
         # use regex to validate email
         is_valid = bool(re.match(r"[^@]+@[^@]+\.[^@]+", email))
         if not is_valid:
-            raise ValueError("Invalid email format")
+            raise InvalidEmailAddress()

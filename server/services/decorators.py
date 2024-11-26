@@ -10,6 +10,13 @@ This file was created with the assistance of AI tools (GitHub Copilot). All code
 # IMPORTS
 from functools import wraps
 from flask import session, jsonify, request, current_app
+import os
+import json
+
+
+# CONSTANTS
+with open(os.getenv('USER_STRINGS_FILEPATH'), 'r') as file:
+    USER_STRINGS = json.load(file)
 
 
 # DECORATORS
@@ -52,7 +59,7 @@ def login_required(func: callable) -> callable:
             db.increment_total_requests(db.get_user_by_id(session.get('user_id')))
             return func(*args, **kwargs)
         else:
-            return jsonify({"error": "login required"}), 401
+            return jsonify({"error": USER_STRINGS['decorators']['login']}), 401
     return wrapper
 
 
@@ -106,7 +113,7 @@ def api_key_required(func: callable) -> callable:
                 db.increment_total_requests(user)
                 return func(*args, **kwargs)
             else:
-                raise Exception("API key required")
+                raise Exception(USER_STRINGS['decorators']['api'])
         except Exception as e:
             return jsonify({"error": str(e)}), 401
     return wrapper
@@ -138,7 +145,7 @@ def admin_required(func: callable) -> callable:
                 db.increment_total_requests(user)
                 return func(*args, **kwargs)
             else:
-                return jsonify({"error": "admin required"}), 401
+                return jsonify({"error": USER_STRINGS['decorators']['admin']}), 401
         else:
-            return jsonify({"error": "login required"}), 401
+            return jsonify({"error": USER_STRINGS['decorators']['login']}), 401
     return wrapper

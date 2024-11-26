@@ -1,0 +1,54 @@
+{
+    "routes": {
+        "root": "Hello, World!",
+        "service": {
+            "register": "Check email for verification code",
+            "verify": "verification successful",
+            "query": "You have 0 requests remaining.",
+            "update_user_info": "User info updated",
+            "delete_user": "User deleted",
+            "query_history_by_id": "Scrape not found",
+            "delete_query_history": {
+                "success": "Scrape deleted",
+                "failure": "Scrape not found"
+            }
+        },
+        "database": {
+            "change_name": "Name changed",
+            "delete_user": "User deleted"
+        },
+        "authentication": {
+            "login": "Login successful",
+            "logout": "Logout successful",
+            "register": "Registration successful",
+            "reset_password": "Password reset successful",
+            "request_password_reset": "Reset code sent",
+            "verify": "Verification successful",
+            "reset_api_key": "API key reset",
+            "is_admin": "User is admin",
+            "is_verified": {
+                "true": "User is verified",
+                "false": "User is not verified"
+            },
+            "is_unverified": "User is logged in",
+            "delete_account": "Account deleted"
+        }
+    },
+    "exceptions": {
+        "InvalidAPIKey": "Invalid API key",
+        "NoCreditsRemaining": "No credits remaining",
+        "InvalidEmailAddress": "Invalid email address",
+        "IncorrectPassword": "Incorrect password",
+        "EmailAddressAlreadyInUse": "Email address already in use",
+        "UserNotFound": "User not found",
+        "InvalidOneTimeCode": "Invalid one-time code",
+        "ImpermissibleUserRequest": "Impermissible user request",
+        "FetchRequestFailed": "Fetch request failed",
+        "LLMRequestFailed": "LLM request failed"
+    },
+    "decorators": {
+        "login": "login required",
+        "api": "API key required",
+        "admin": "admin required"
+    }
+}

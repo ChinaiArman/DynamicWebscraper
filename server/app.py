@@ -9,6 +9,7 @@ import logging
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
+import json
 
 from flasgger import Swagger
 
@@ -29,6 +30,8 @@ from session_config import configure_sessions
 # CONSTANTS
 load_dotenv()
 CLIENT_URL = os.getenv('CLIENT_URL')
+with open(os.getenv('USER_STRINGS_FILEPATH'), 'r') as file:
+    USER_STRINGS = json.load(file)
 
 
 # CREATE APP
@@ -110,7 +113,7 @@ def create_app() -> Flask:
             200:
                 description: Hello World
         """
-        return jsonify({"message": "Hello World"})
+        return jsonify({"message": USER_STRINGS['routes']['root']})
     
     @app.after_request
     def _(response):

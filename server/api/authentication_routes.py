@@ -5,12 +5,19 @@ This module contains the routes for the authentication API endpoints.
 
 # IMPORTS
 from flask import Blueprint, jsonify, request, current_app, session
+import os
+import json
 
 from services.decorators import login_required, admin_required
 
 
 # DEFINE BLUEPRINT
 authentication_bp = Blueprint('authentication_bp', __name__)
+
+
+# CONSTANTS
+with open(os.getenv('USER_STRINGS_FILEPATH'), 'r') as file:
+    USER_STRINGS = json.load(file)
 
 
 # ROUTES
@@ -37,7 +44,7 @@ def login() -> tuple:
         db.increment_total_requests(user)
         session.permanent = True
         session["user_id"] = user.id
-        return jsonify({"message": "login successful"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['login']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -57,7 +64,7 @@ def logout() -> tuple:
     """
     try:
         session.clear()
-        return jsonify({"message": "logout successful"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['logout']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -87,7 +94,7 @@ def register() -> tuple:
         session.permanent = True
         session["user_id"] = user.id
         email_manager.send_verification_email(email, user.email, verification_code)
-        return jsonify({"message": "registration successful"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['register']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -114,7 +121,7 @@ def reset_password() -> tuple:
         db.increment_total_requests(user)
         authenticator.verify_code(reset_code, user.reset_code)
         db.update_password(user, password)
-        return jsonify({"message": "password reset successful"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['reset_password']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -141,7 +148,7 @@ def request_password_reset() -> tuple:
         reset_code = authenticator.generate_one_time_code()
         db.update_reset_code(user, reset_code)
         email_manager.forgot_password_email(email, reset_code)
-        return jsonify({"message": "reset code sent"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['request_password_reset']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -168,7 +175,7 @@ def verify() -> tuple:
         authenticator.verify_code(verification_code, user.verification_code)
         api_key = authenticator.generate_api_key()
         db.verify_user(user, api_key)
-        return jsonify({"message": "verification successful"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['verify']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -193,7 +200,7 @@ def reset_api_key() -> tuple:
         user = db.get_user_by_id(user_id)
         api_key = authenticator.generate_api_key()
         db.reset_api_key(user, api_key)
-        return jsonify({"message": "API key reset successful"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['reset_api_key']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -211,7 +218,7 @@ def is_admin() -> tuple:
     -------
     response (tuple): The response tuple containing the response data and status code.
     """
-    return jsonify({"message": "user is an admin"}), 200
+    return jsonify({"message": USER_STRINGS['routes']['authentication']['is_admin']}), 200
 
 @authentication_bp.route('/authenticate/is-verified/', methods=['GET'])
 @login_required
@@ -233,9 +240,9 @@ def is_verified() -> tuple:
         user_id = session.get('user_id')
         user = db.get_user_by_id(user_id)
         if user.is_verified:
-            return jsonify({"message": "user is verified"}), 200
+            return jsonify({"message": USER_STRINGS['routes']['authentication']['is_verified']['true']}), 200
         else:
-            return jsonify({"error": "user is not verified"}), 401
+            return jsonify({"error": USER_STRINGS['routes']['authentication']['is_verified']['false']}), 401
     except Exception as e:
         return jsonify({"error": str(e)}), 401
     
@@ -253,7 +260,7 @@ def is_logged_in() -> tuple:
     -------
     response (tuple): The response tuple containing the response data and status code.
     """
-    return jsonify({"message": "user is logged in"}), 200
+    return jsonify({"message": USER_STRINGS['routes']['authentication']['is_unverified']}), 200
 
 @authentication_bp.route('/authenticate/delete-account/', methods=['DELETE'])
 @login_required
@@ -274,7 +281,7 @@ def delete_account() -> tuple:
         user_id = session.get('user_id')
         db.delete_user(user_id)
         session.clear()
-        return jsonify({"message": "account deleted"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['authentication']['delete_account']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
     

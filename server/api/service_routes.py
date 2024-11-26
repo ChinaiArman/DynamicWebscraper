@@ -9,12 +9,19 @@ The swagger documentation was created with the assistance of AI tools (GitHub Co
 
 # IMPORTS
 from flask import Blueprint, jsonify, request, current_app
+import os
+import json
 
 from services.decorators import api_key_required
 
 
 # DEFINE BLUEPRINT
 service_bp = Blueprint('service_bp', __name__)
+
+
+# CONSTANTS
+with open(os.getenv('USER_STRINGS_FILEPATH'), 'r') as file:
+    USER_STRINGS = json.load(file)
 
 
 # ROUTES
@@ -77,7 +84,7 @@ def register() -> tuple:
         user = db.create_user(email, password, verification_code)
         db.increment_total_requests(user)
         email_manager.send_verification_email(email, user.email, verification_code)
-        return jsonify({"userInfo": user.to_dict(), "message": "Check email for verification code"}), 200
+        return jsonify({"userInfo": user.to_dict(), "message": USER_STRINGS['routes']['service']['register']}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
     
@@ -137,7 +144,7 @@ def verify(user_id) -> tuple:
         authenticator.verify_code(verification_code, user.verification_code)
         api_key = authenticator.generate_api_key()
         db.verify_user(user, api_key)
-        return jsonify({"message": "verification successful", "api_key": api_key}), 200
+        return jsonify({"message": USER_STRINGS['routes']['service']['verify'], "api_key": api_key}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 401
 
@@ -224,7 +231,7 @@ def query() -> tuple:
         if user.requests_available <= 0:
             response = {
                 "result": response,
-                "warning": "You have 0 requests remaining."
+                "warning": USER_STRINGS['routes']['service']['query']
             }
         else:
             response = {
@@ -357,7 +364,7 @@ def update_user_info() -> tuple:
             authenticator = current_app.config['authenticator']
             password = authenticator.hash_password(password)
             db.update_password(user, password)
-        return jsonify({'message': 'User info updated'}), 200
+        return jsonify({'message': USER_STRINGS['routes']['service']['update_user_info']}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
     
@@ -410,7 +417,7 @@ def delete_user() -> tuple:
         db = current_app.config['database']
         user = db.get_user_by_api_key(api_key)
         db.delete_user(user.id)
-        return jsonify({'message': 'User deleted'}), 200
+        return jsonify({'message': USER_STRINGS['routes']['service']['delete_user']}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
@@ -526,7 +533,7 @@ def query_history_by_id(scrape_id: int) -> tuple:
         user = db.get_user_by_api_key(api_key)
         scrape = db.get_scrape_by_id(scrape_id)
         if scrape.user_id != user.id:
-            return jsonify({'error': 'Scrape not found'}), 400
+            return jsonify({'error': USER_STRINGS['routes']['service']['query_history_by_id']}), 400
         return jsonify(scrape.to_dict()), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
@@ -588,8 +595,8 @@ def delete_query_history(scrape_id: int) -> tuple:
         user = db.get_user_by_api_key(api_key)
         scrape = db.get_scrape_by_id(scrape_id)
         if scrape.user_id != user.id:
-            return jsonify({'error': 'Scrape not found'}), 400
+            return jsonify({'error': USER_STRINGS['routes']['service']['delete_query_history']['failure']}), 400
         db.delete_scrape(scrape_id)
-        return jsonify({'message': 'Scrape deleted'}), 200
+        return jsonify({'message': USER_STRINGS['routes']['service']['delete_query_history']['success']}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400

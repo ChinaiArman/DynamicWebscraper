@@ -5,11 +5,19 @@ This module contains the routes for the database API endpoints.
 
 # IMPORTS
 from flask import Blueprint, jsonify, request, current_app, session
+import os
+import json
 
 from services.decorators import login_required, admin_required
 
+
 # DEFINE BLUEPRINT
 database_bp = Blueprint('database_bp', __name__)
+
+
+# CONSTANTS
+with open(os.getenv('USER_STRINGS_FILEPATH'), 'r') as file:
+    USER_STRINGS = json.load(file)
 
 
 # ROUTES
@@ -77,7 +85,7 @@ def change_name() -> tuple:
         name = request.json.get('name')
         user = db.get_user_by_id(user_id)
         db.update_user(user, name)
-        return jsonify({"message": "name changed"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['database']['change_name']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
@@ -141,6 +149,6 @@ def delete_user() -> tuple:
         db = current_app.config['database']
         user_id = request.json.get('user_id')
         db.delete_user(user_id)
-        return jsonify({"message": "user deleted"}), 200
+        return jsonify({"message": USER_STRINGS['routes']['database']['delete_user']}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
